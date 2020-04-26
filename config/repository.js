@@ -18,7 +18,7 @@ const Teams = TeamModel(sequelize, Sequelize)
 const DocumentTypes = DocumentTypeModel(sequelize, Sequelize)
 const DocumentRequests = DocumentRequestModel(sequelize, Sequelize)
 
-//associations
+//relationships
 DocumentRequests.belongsTo(Documents, { foreignKey: "document_id" })
 DocumentRequests.belongsTo(Employees, { foreignKey: "employee_id", as: "employee" })
 DocumentRequests.belongsTo(DocumentTypes, { foreignKey: "document_type_id", as: "document_type" })

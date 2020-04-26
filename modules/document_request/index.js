@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const storage = require("../../config/storage")
 
 const documentRequestService = require("./service")
 
@@ -64,6 +65,16 @@ router.delete("/:id", (req, res) => {
             console.log(error)
             res.status(500)
             res.json({ "data": "something bad happened" })
+        })
+})
+
+router.post("/:id/answer", storage.storage.array("documents"), (req, res) => {
+    const id = req.params.id
+    const files = { ...req.files }
+    documentRequestService.awnser_document_request(id, files)
+        .then(response => {
+            console.log(response)
+            res.json({ data: "ANSWER Request" })
         })
 })
 

@@ -22,8 +22,22 @@ module.exports = {
         return new_document_request;
     },
 
-    async awnser_document_request(id_document_request, documents) {
+    async awnser_document_request(id, documents) {
+        try {
+            const doc_requests = await DocumentRequests.findByPk(id)
+            const documentsToSave = []
 
+            for (let index = 0; index < documents.length; index++) {
+                const uploadedDoc = documents[index];
+                const document = {
+                    name: uploadedDoc.originalname,
+                    path: uploadedDoc.path
+                }
+                documentsToSave.push(document)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     },
 
     async deactivate_request(id) {
