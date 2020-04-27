@@ -1,24 +1,33 @@
-const { DocumentRequests, Documents, Employees, DocumentTypes } = require("../../config/repository")
-
-const storage = require("../../config/storage")
+const { DocumentRequests, DocumentRequestItem, Employees, DocumentTypes } = require("../../config/repository")
 
 module.exports = {
 
     async findAll() {
         const document_requests = await DocumentRequests.findAll(
             {
-                attributes: ['id', 'employee_id', 'document_type_id', 'active'],
-                include: [{ model: Employees, as: "employee" }, { model: DocumentTypes, as: "document_type" }]
+                attributes: ['id', 'employee_id', 'active'],
+                include: [{ model: Employees, as: "employee" }]
             })
         return document_requests;
     },
 
     async open_document_request(document_request) {
+
         const new_document_request = await DocumentRequests.create({
-            "document_id": document_request.document,
-            "employee_id": document_request.employee,
-            "document_type_id": document_request.documentType
+            "name": document_request.name,
+            "employee": document_request.employee,
+            "documents_items": document_request.documents_items
+        }, {
+            include: [{
+                model: DocumentRequestItem,
+                as: "documents_items",
+                include: [{ model: DocumentTypes, as: "document_type" }]
+            }, {
+                model: Employees,
+                as: "employee"
+            },]
         })
+
         return new_document_request;
     },
 

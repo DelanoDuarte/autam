@@ -1,18 +1,24 @@
 const Sequelize = require("sequelize")
 
 module.exports = (sequelize, type) => {
-    return sequelize.define("Document_Requests", {
+    return sequelize.define("Document_Request_Items", {
         id: {
             type: Sequelize.INTEGER(),
             primaryKey: true,
             allowNull: false,
             autoIncrement: true
         },
-        name: Sequelize.STRING(255),
-        employee_id: {
+        document_type_id: {
             type: Sequelize.INTEGER(),
             references: {
-                model: "Employees",
+                model: "DocumentTypes",
+                key: 'id'
+            }
+        },
+        document_request_id: {
+            type: Sequelize.INTEGER(),
+            references: {
+                model: "Document_Requests",
                 key: 'id'
             }
         },
@@ -21,6 +27,6 @@ module.exports = (sequelize, type) => {
             defaultValue: true
         }
     }, {
-        tableName: 'Document_Requests'
+        tableName: 'Document_Request_Items'
     })
 }
