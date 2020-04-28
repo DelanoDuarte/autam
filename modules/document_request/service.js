@@ -1,4 +1,4 @@
-const { DocumentRequests, DocumentRequestItem, Employees, DocumentTypes } = require("../../config/repository")
+const { DocumentRequests, DocumentRequestItem, Employees, DocumentTypes, Documents } = require("../../config/repository")
 
 module.exports = {
 
@@ -9,7 +9,26 @@ module.exports = {
                 include: [{
                     model: DocumentRequestItem,
                     as: "documents_items",
-                    include: [{ model: DocumentTypes, as: "document_type" }]
+                    include: [{ model: DocumentTypes, as: "document_type" }, { model: Documents, as: "documents" }]
+                }, {
+                    model: Employees,
+                    as: "employee"
+                }]
+            })
+        return document_requests;
+    },
+
+    async findById(document_request_id) {
+        const document_requests = await DocumentRequests.findOne(
+            {
+                where: {
+                    id: document_request_id
+                },
+                attributes: ['id', 'active'],
+                include: [{
+                    model: DocumentRequestItem,
+                    as: "documents_items",
+                    include: [{ model: DocumentTypes, as: "document_type" }, { model: Documents, as: "documents" }]
                 }, {
                     model: Employees,
                     as: "employee"
