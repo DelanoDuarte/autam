@@ -1,4 +1,5 @@
 const { DocumentRequestItem, Documents, DocumentTypes } = require("../../config/repository")
+const { Util } = require("../utils/Util");
 
 const storage = require("../../config/storage")
 
@@ -8,7 +9,7 @@ module.exports = {
         const document_requests = await DocumentRequestItem.findAll(
             {
                 attributes: ['id', 'document_type_id', 'active'],
-                include: [{ model: DocumentTypes, as: "document_type" }, { model: Documents }]
+                include: [{ model: DocumentTypes, as: "document_type" }, { model: Documents, as: "documents" }]
             })
         return document_requests;
     },
@@ -21,6 +22,39 @@ module.exports = {
         return new_document_request;
     },
 
+    async awnser_document_request_item(id_document_request_item, documents_uploaded) {
+        try {
+            const doc_uploaded = Util.mapRequestFilesToArray(documents_uploaded);
+            let doc_request_item = await DocumentRequestItem.findOne({
+                where: {
+                    id: id_document_request_item
+                },
+                include: [{
+                    model: Documents,
+                    as: "documents",
+                    through: {
+                        attributes: []
+                    }
+                }]
+            })
+
+            for (let index = 0; index < doc_uploaded.length; index++) {
+                const uploadedDoc = doc_uploaded[index];
+                const document = {
+                    name: uploadedDoc.originalname,
+                    path: uploadedDoc.path
+                }
+                doc_request_item.createDocument(document)
+            }
+
+            const updated_doc_request_item = await doc_request_item.update({})
+
+            return updated_doc_request_item
+
+        } catch (error) {
+            console.log(error)
+        }
+    },
 
     async deactivate_request(id) {
         const doc_request = await DocumentRequestItem.findByPk(id)

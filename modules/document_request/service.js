@@ -5,8 +5,15 @@ module.exports = {
     async findAll() {
         const document_requests = await DocumentRequests.findAll(
             {
-                attributes: ['id', 'employee_id', 'active'],
-                include: [{ model: Employees, as: "employee" }]
+                attributes: ['id', 'active'],
+                include: [{
+                    model: DocumentRequestItem,
+                    as: "documents_items",
+                    include: [{ model: DocumentTypes, as: "document_type" }]
+                }, {
+                    model: Employees,
+                    as: "employee"
+                }]
             })
         return document_requests;
     },
@@ -25,7 +32,7 @@ module.exports = {
             }, {
                 model: Employees,
                 as: "employee"
-            },]
+            }]
         })
 
         return new_document_request;
