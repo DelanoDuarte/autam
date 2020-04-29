@@ -1,12 +1,12 @@
 const express = require("express")
 const router = express.Router()
 
-const employeeService = require("./service")
+const personService = require("./service")
 
 router.get("/", (req, res) => {
-    employeeService.findAll()
+    personService.findAll()
         .then(data => {
-            res.json({ "employees": data })
+            res.json({ "people": data })
         }).catch(() => {
             res.status(500)
             res.json({ "status": "something is wrong" })
@@ -15,9 +15,9 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
     const employee = { ...req.body }
-    employeeService.save(employee)
+    personService.save(employee)
         .then(emp => {
-            res.json({ "employee": emp.toJSON() })
+            res.json({ "person": emp.toJSON() })
         })
         .catch(error => {
             res.status(500)

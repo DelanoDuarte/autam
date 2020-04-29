@@ -1,4 +1,4 @@
-const { DocumentRequests, DocumentRequestItem, Employees, DocumentTypes, Documents } = require("../../config/repository")
+const { DocumentRequests, DocumentRequestItem, Persons, DocumentTypes, Documents } = require("../../config/repository")
 
 module.exports = {
 
@@ -11,8 +11,8 @@ module.exports = {
                     as: "documents_items",
                     include: [{ model: DocumentTypes, as: "document_type" }, { model: Documents, as: "documents" }]
                 }, {
-                    model: Employees,
-                    as: "employee"
+                    model: Persons,
+                    as: "person"
                 }]
             })
         return document_requests;
@@ -30,8 +30,8 @@ module.exports = {
                     as: "documents_items",
                     include: [{ model: DocumentTypes, as: "document_type" }, { model: Documents, as: "documents" }]
                 }, {
-                    model: Employees,
-                    as: "employee"
+                    model: Persons,
+                    as: "person"
                 }]
             })
         return document_requests;
@@ -41,7 +41,7 @@ module.exports = {
 
         const new_document_request = await DocumentRequests.create({
             "name": document_request.name,
-            "employee": document_request.employee,
+            "person": document_request.person,
             "documents_items": document_request.documents_items
         }, {
             include: [{
@@ -49,27 +49,27 @@ module.exports = {
                 as: "documents_items",
                 include: [{ model: DocumentTypes, as: "document_type" }]
             }, {
-                model: Employees,
-                as: "employee"
+                model: Persons,
+                as: "person"
             }]
         })
 
         return new_document_request;
     },
 
-    async awnser_document_request(id, documents) {
+    async add_new_request_item_to_request(id_request, doc_request_items) {
         try {
-            const doc_requests = await DocumentRequests.findByPk(id)
-            const documentsToSave = []
+            doc_request_items.forEach(docRequestItem => {
+                DocumentRequestItem.create({
+                    "DocumentRequestId": id_request,
+                    "document_type": docRequestItem.document_type
+                }, { include: [{ model: DocumentTypes, as: "document_type" }] })
+            })
 
-            for (let index = 0; index < documents.length; index++) {
-                const uploadedDoc = documents[index];
-                const document = {
-                    name: uploadedDoc.originalname,
-                    path: uploadedDoc.path
-                }
-                documentsToSave.push(document)
-            }
+            const request = await this.findById(id_request)
+
+            return request
+
         } catch (error) {
             console.log(error)
         }

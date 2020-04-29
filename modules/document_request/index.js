@@ -68,13 +68,18 @@ router.delete("/:id", (req, res) => {
         })
 })
 
-router.post("/:id/answer", storage.storage.array("documents"), (req, res) => {
+router.post("/:id/add/item", (req, res) => {
     const id = req.params.id
-    const files = { ...req.files }
-    documentRequestService.awnser_document_request(id, files)
-        .then(response => {
-            console.log(response)
-            res.json({ data: "ANSWER Request" })
+    const doc_items = { ...req.body }
+    documentRequestService.add_new_request_item_to_request(id, doc_items.documents_items)
+        .then(data => {
+            res.status(200)
+            res.json({ "document_request": data })
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(500)
+            res.json({ "data": "something bad happened" })
         })
 })
 

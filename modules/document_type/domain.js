@@ -8,7 +8,10 @@ module.exports = (sequelize, type) => {
             allowNull: false,
             autoIncrement: true
         },
-        name: Sequelize.STRING(255),
+        name: {
+            type: Sequelize.STRING(255),
+            allowNull: false
+        },
     }, {
         tableName: 'DocumentTypes'
     })

@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize")
 
-const EmployeeModel = require("../modules/employee/domain")
+const PersonModel = require("../modules/person/domain")
 const DocumentModel = require("../modules/document/domain")
 const TeamModel = require("../modules/team/domain")
 const DocumentTypeModel = require("../modules/document_type/domain")
@@ -13,7 +13,7 @@ const sequelize = new Sequelize({
 })
 
 
-const Employees = EmployeeModel(sequelize, Sequelize)
+const Persons = PersonModel(sequelize, Sequelize)
 const Documents = DocumentModel(sequelize, Sequelize)
 const Teams = TeamModel(sequelize, Sequelize)
 const DocumentTypes = DocumentTypeModel(sequelize, Sequelize)
@@ -24,12 +24,12 @@ const DocumentRequests = DocumentRequestModel(sequelize, Sequelize)
 DocumentRequestItem.belongsToMany(Documents, { as: "documents", through: 'DocumentRequestItemFiles' })
 DocumentRequestItem.belongsTo(DocumentTypes, { foreignKey: "document_type_id", as: "document_type" })
 
-DocumentRequests.belongsTo(Employees, { foreignKey: "employee_id", as: "employee" })
 DocumentRequests.hasMany(DocumentRequestItem, { as: "documents_items" })
 DocumentRequestItem.belongsTo(DocumentRequests)
 
-Teams.hasMany(Employees)
-Employees.belongsTo(Teams)
+DocumentRequests.belongsTo(Persons, { foreignKey: "person_id", as: "person" })
+Teams.hasMany(Persons)
+Persons.belongsTo(Teams)
 
 
 sequelize.sync({ force: true })
@@ -39,7 +39,7 @@ sequelize.sync({ force: true })
 
 module.exports = {
     sequelize,
-    Employees,
+    Persons,
     Documents,
     Teams,
     DocumentTypes,

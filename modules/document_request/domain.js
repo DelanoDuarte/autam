@@ -9,10 +9,10 @@ module.exports = (sequelize, type) => {
             autoIncrement: true
         },
         name: Sequelize.STRING(255),
-        employee_id: {
+        person_id: {
             type: Sequelize.INTEGER(),
             references: {
-                model: "Employees",
+                model: "Persons",
                 key: 'id'
             }
         },
