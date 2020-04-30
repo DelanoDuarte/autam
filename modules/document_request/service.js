@@ -66,10 +66,7 @@ module.exports = {
                 }, { include: [{ model: DocumentTypes, as: "document_type" }] })
             })
 
-            const request = await this.findById(id_request)
-
-            return request
-
+            return this.findById(id_request)
         } catch (error) {
             console.log(error)
         }
