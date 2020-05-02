@@ -15,9 +15,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import { HomeOutlined } from "@material-ui/icons";
+
+import { HomeOutlined, FileCopyOutlined } from "@material-ui/icons";
+
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -83,7 +84,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Layout(props) {
+export const Layout = (props) => {
+
+
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -141,13 +144,13 @@ export default function Layout(props) {
                 </div>
                 <Divider />
                 <List>
-                    <ListItem button key="Home">
+                    <ListItem button key="Home" to="/" component={Link}>
                         <ListItemIcon> <HomeOutlined /></ListItemIcon>
                         <ListItemText primary="Home" />
                     </ListItem>
 
-                    <ListItem button key="Document Request">
-                        <ListItemIcon> <MailIcon /> </ListItemIcon>
+                    <ListItem button key="Document Request" to="/document-request" component={Link}>
+                        <ListItemIcon> <FileCopyOutlined /> </ListItemIcon>
                         <ListItemText primary="Document Request" />
                     </ListItem>
 
