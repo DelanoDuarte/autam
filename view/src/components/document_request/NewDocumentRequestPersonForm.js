@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField } from "@material-ui/core";
+import { TextField, Grid } from "@material-ui/core";
 
 export const NewDocumentRequestPersonForm = (props) => {
 
@@ -11,11 +11,17 @@ export const NewDocumentRequestPersonForm = (props) => {
     return (
         <div>
             <form>
-                <div>
-                    <TextField label="Name" value={name} onChange={(e) => setName(e.target.value)} />
-                    <TextField label="Surname" value={surname} onChange={(e) => setSurname(e.target.value)} />
-                    <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <TextField fullWidth label="Name" value={name} onChange={(e) => setName(e.target.value)} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField fullWidth label="Surname" value={surname} onChange={(e) => setSurname(e.target.value)} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField fullWidth label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </Grid>
+                </Grid>
             </form>
         </div>
     )
