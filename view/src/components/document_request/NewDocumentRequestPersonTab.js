@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RadioGroup, FormControlLabel, FormLabel, Divider, Radio, Grid, FormControl } from "@material-ui/core";
+import { RadioGroup, FormControlLabel, Divider, Radio, Grid } from "@material-ui/core";
 import { NewDocumentRequestPersonForm } from "./NewDocumentRequestPersonForm";
 
 export const NewDocumentRequestPersonTab = (props) => {
@@ -8,7 +8,7 @@ export const NewDocumentRequestPersonTab = (props) => {
 
     return (
         <div>
-            <FormLabel component="legend">Person</FormLabel>
+
             <RadioGroup aria-label="person" name="person" value={personSaveType} onChange={(e) => setPersonSaveType(e.target.value)}>
                 <Grid container spacing={1} xs={12} justify="center">
                     <Grid item xs={2} />

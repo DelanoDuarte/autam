@@ -1,27 +1,41 @@
 import React, { useState } from "react";
-import { TextField, Grid } from "@material-ui/core";
+import { TextField, Grid, Button } from "@material-ui/core";
 
 export const NewDocumentRequestPersonForm = (props) => {
 
-    const [name, setName] = useState("")
-    const [surname, setSurname] = useState("")
-    const [email, setEmail] = useState("")
-    const [age, setAge] = useState(0)
+    const [person, setPerson] = useState({
+        name: "",
+        surname: "",
+        email: "",
+        age: 0
+    })
+
+    const addPerson = (e) => {
+        e.preventDefault();
+        console.log(person)
+    }
 
     return (
         <div>
-            <form>
+            <form onSubmit={(e) => addPerson(e)}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <TextField fullWidth label="Name" value={name} onChange={(e) => setName(e.target.value)} />
+                        <TextField fullWidth label="Name" value={person.name} onChange={(e) => setPerson({ ...person, name: e.target.value })} />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField fullWidth label="Surname" value={surname} onChange={(e) => setSurname(e.target.value)} />
+                        <TextField fullWidth label="Surname" value={person.surname} onChange={(e) => setPerson({ ...person, surname: e.target.value })} />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField fullWidth label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <TextField fullWidth label="Email" value={person.email} onChange={(e) => setPerson({ ...person, email: e.target.value })} />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextField label="Age" value={person.age} onChange={(e) => setPerson({ ...person, age: e.target.value })} type="number" />
                     </Grid>
                 </Grid>
+
+                <br />
+
+                <Button variant="contained" type="submit" color="primary">Save</Button>
             </form>
         </div>
     )
