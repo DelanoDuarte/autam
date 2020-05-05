@@ -16,9 +16,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { HomeOutlined, FileCopyOutlined } from "@material-ui/icons";
+import { HomeOutlined, FileCopyOutlined, Notifications } from "@material-ui/icons";
 
 import { Link } from "react-router-dom";
+import { Badge } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -82,6 +83,9 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    title: {
+        flexGrow: 1,
+    },
 }));
 
 export const Layout = (props) => {
@@ -120,9 +124,17 @@ export const Layout = (props) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
+                    <Typography variant="h6" noWrap className={classes.title}>
                         Autam Home
                     </Typography>
+
+                    <IconButton edge="end" aria-controls="menu-appbar"
+                        color="inherit">
+                        <Badge badgeContent={0} color="secondary">
+                            <Notifications />
+                        </Badge>
+                    </IconButton>
+
                 </Toolbar>
             </AppBar>
             <Drawer

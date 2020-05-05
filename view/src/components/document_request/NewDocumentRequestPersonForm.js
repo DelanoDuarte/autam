@@ -35,7 +35,9 @@ export const NewDocumentRequestPersonForm = (props) => {
 
                 <br />
 
-                <Button variant="contained" type="submit" color="primary">Save</Button>
+                <Grid container justify="center">
+                    <Button variant="contained" type="submit" color="primary">Save</Button>
+                </Grid>
             </form>
         </div>
     )
