@@ -12,7 +12,7 @@ export const NewDocumentRequestPersonForm = (props) => {
 
     const addPerson = (e) => {
         e.preventDefault();
-        console.log(person)
+        props.onSavePerson(person)
     }
 
     return (

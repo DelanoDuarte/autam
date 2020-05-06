@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Tabs, Tab, AppBar, Box, Typography, makeStyles } from "@material-ui/core";
 import { PeopleAltOutlined, FileCopyOutlined } from "@material-ui/icons";
-import { NewDocumentRequestPersonTab } from "./NewDocumentRequestPersonTab";
+import NewDocumentRequestPersonTab from "./NewDocumentRequestPersonTab";
 
 const useStyles = makeStyles((theme) => ({
     root: {

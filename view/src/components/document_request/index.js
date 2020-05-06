@@ -4,6 +4,8 @@ import { NewDocumentRequest } from "./NewDocumentRequest";
 
 import { PeopleAltRounded, FileCopyOutlined } from "@material-ui/icons";
 
+import { connect } from "react-redux";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -16,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const IndexDocumentRequest = (props) => {
+const IndexDocumentRequest = (props) => {
 
     const classes = useStyles()
 
@@ -31,7 +33,7 @@ export const IndexDocumentRequest = (props) => {
 
                     <IconButton aria-controls="menu-appbar"
                         color="inherit">
-                        <Badge badgeContent={1} color="secondary">
+                        <Badge badgeContent={props.people.people.length} color="secondary">
                             <PeopleAltRounded />
                         </Badge>
                     </IconButton>
@@ -53,3 +55,10 @@ export const IndexDocumentRequest = (props) => {
         </div>
     )
 }
+
+const mapStateToProps = (state) => {
+    console.log(state)
+    return state
+}
+
+export default connect(mapStateToProps)(IndexDocumentRequest)
