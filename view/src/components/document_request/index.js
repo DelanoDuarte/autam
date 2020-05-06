@@ -41,7 +41,7 @@ const IndexDocumentRequest = (props) => {
 
                     <IconButton edge="end" aria-controls="menu-appbar"
                         color="inherit">
-                        <Badge badgeContent={1} color="secondary">
+                        <Badge badgeContent={props.documents.documents.length} color="secondary">
                             <FileCopyOutlined />
                         </Badge>
                     </IconButton>

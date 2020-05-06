@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Tabs, Tab, AppBar, Box, Typography, makeStyles } from "@material-ui/core";
+import { Tabs, Tab, AppBar, Box, makeStyles } from "@material-ui/core";
 import { PeopleAltOutlined, FileCopyOutlined } from "@material-ui/icons";
 import NewDocumentRequestPersonTab from "./NewDocumentRequestPersonTab";
+import NewDocumentRequestDocumentsTab from "./NewDocumentRequestDocumentsTab";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,7 +25,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 <Box p={3}>
-                    <Typography>{children}</Typography>
+                    {children}
                 </Box>
             )}
         </div>
@@ -48,7 +49,7 @@ export const NewDocumentRequest = (props) => {
                 </TabPanel>
 
                 <TabPanel value={activeTab} index={1}>
-                    Documents
+                    <NewDocumentRequestDocumentsTab />
                 </TabPanel>
             </AppBar>
         </div>
