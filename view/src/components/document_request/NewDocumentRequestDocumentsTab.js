@@ -2,10 +2,21 @@ import React, { useState } from "react";
 import DocumentsTabGrid from "./DocumentsTabGrid";
 
 import { connect } from "react-redux";
-import { Divider, Grid, Button, Dialog, TextField, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
+import { Divider, Grid, Button, Dialog, TextField, DialogActions, DialogContent, DialogTitle, makeStyles } from "@material-ui/core";
+import { AddCircle, SearchOutlined } from "@material-ui/icons";
+
 
 import { addDocument } from "../../actions/document-type/index";
 import { useSnackbar } from "notistack";
+
+const useStyles = makeStyles((theme) => ({
+    margin: {
+        margin: theme.spacing(1),
+    },
+    extendedIcon: {
+        marginRight: theme.spacing(1),
+    },
+}));
 
 const DialogAddDocumentType = (props) => {
 
@@ -46,6 +57,8 @@ const DialogAddDocumentType = (props) => {
 
 const NewDocumentRequestDocumentsTab = (props) => {
 
+    const classes = useStyles()
+
     const { enqueueSnackbar } = useSnackbar()
 
     const [dialogOpen, setDialogOpen] = useState(false)
@@ -53,7 +66,6 @@ const NewDocumentRequestDocumentsTab = (props) => {
     const addDocumentTypeToList = (docType) => {
         props.addDocument(docType)
         enqueueSnackbar("Document Type Added Sucessfuly", { variant: "success" })
-        console.log(props)
     }
 
     return (
@@ -62,11 +74,21 @@ const NewDocumentRequestDocumentsTab = (props) => {
                 direction="row"
                 justify="flex-end"
                 alignItems="center">
-                <Button color="primary" variant="contained" onClick={() => setDialogOpen(true)}>
-                    Add a Document Type
-                </Button>
+
+                <Grid item>
+                    <Button size="small" startIcon={<AddCircle />} color="primary" className={classes.margin} variant="contained" onClick={() => setDialogOpen(true)}>
+                        Add
+                    </Button>
+                </Grid>
+
+                <Grid item>
+                    <Button size="small" startIcon={<SearchOutlined />} color="secondary" variant="contained" className={classes.margin}>
+                        Search
+                    </Button>
+                </Grid>
             </Grid>
             <br />
+
             <Divider />
             <DocumentsTabGrid documents={props.documents.documents} />
             <DialogAddDocumentType documentTypeToAdd={(doc) => addDocumentTypeToList(doc)} dialogOpen={dialogOpen} onDialogClose={() => setDialogOpen(false)} />

@@ -1,3 +1,5 @@
+import { ClientAPI } from "./ClientAPI";
+
 export class DocumentRequestAPI {
 
     static async saveDocumentRequest() {
@@ -5,7 +7,7 @@ export class DocumentRequestAPI {
     }
 
     static async findAllDocumentRequests() {
-
+        
     }
 
 }

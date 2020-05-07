@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Tabs, Tab, AppBar, Box, makeStyles } from "@material-ui/core";
-import { PeopleAltOutlined, FileCopyOutlined } from "@material-ui/icons";
+import { PeopleAltOutlined, FileCopyOutlined, CheckCircle } from "@material-ui/icons";
 import NewDocumentRequestPersonTab from "./NewDocumentRequestPersonTab";
 import NewDocumentRequestDocumentsTab from "./NewDocumentRequestDocumentsTab";
 
@@ -43,6 +43,7 @@ export const NewDocumentRequest = (props) => {
                 <Tabs variant="fullWidth" value={activeTab} onChange={(e, v) => setActiveTab(v)}>
                     <Tab label="Person" icon={<PeopleAltOutlined />} />
                     <Tab label="Documents" icon={<FileCopyOutlined />} />
+                    <Tab label="Conclusion" icon={<CheckCircle />} />
                 </Tabs>
                 <TabPanel value={activeTab} index={0}>
                     <NewDocumentRequestPersonTab />
@@ -50,6 +51,10 @@ export const NewDocumentRequest = (props) => {
 
                 <TabPanel value={activeTab} index={1}>
                     <NewDocumentRequestDocumentsTab />
+                </TabPanel>
+
+                <TabPanel value={activeTab} index={2}>
+
                 </TabPanel>
             </AppBar>
         </div>
