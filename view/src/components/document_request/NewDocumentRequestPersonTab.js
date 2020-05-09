@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { RadioGroup, FormControlLabel, Divider, Radio, Grid, Typography } from "@material-ui/core";
+import { RadioGroup, FormControlLabel, Divider, Radio, Grid } from "@material-ui/core";
 import { NewDocumentRequestPersonForm } from "./NewDocumentRequestPersonForm";
 import { useSnackbar } from "notistack";
 
 import { connect } from "react-redux";
 import { addPerson } from "../../actions/persons/index";
+import PeopleSearch from "../person/PeopleSearch";
 
 const NewDocumentRequestPersonTab = (props) => {
 
@@ -36,9 +37,7 @@ const NewDocumentRequestPersonTab = (props) => {
             {personSaveType === "new" ? (
                 <NewDocumentRequestPersonForm onSavePerson={(person) => personToSave(person)} />
             ) : (
-                    <Typography>
-                        Choose One
-                    </Typography>
+                    <PeopleSearch />
                 )}
         </div>
     )
