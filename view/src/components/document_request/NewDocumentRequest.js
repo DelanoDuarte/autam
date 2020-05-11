@@ -3,6 +3,7 @@ import { Tabs, Tab, AppBar, Box, makeStyles } from "@material-ui/core";
 import { PeopleAltOutlined, FileCopyOutlined, CheckCircle } from "@material-ui/icons";
 import NewDocumentRequestPersonTab from "./NewDocumentRequestPersonTab";
 import NewDocumentRequestDocumentsTab from "./NewDocumentRequestDocumentsTab";
+import NewDocumentRequestConclusionTab from "./NewDocumentRequestConclusionTab";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,7 +55,7 @@ export const NewDocumentRequest = (props) => {
                 </TabPanel>
 
                 <TabPanel value={activeTab} index={2}>
-
+                    <NewDocumentRequestConclusionTab />
                 </TabPanel>
             </AppBar>
         </div>
