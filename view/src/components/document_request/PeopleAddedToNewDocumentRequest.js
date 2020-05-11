@@ -1,13 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { TableContainer, Paper, Table, TableBody, TableRow, TableCell, TableHead, makeStyles } from "@material-ui/core";
-import { DoneAll } from "@material-ui/icons";
+import { TableContainer, Paper, Table, TableBody, TableRow, TableCell, TableHead, makeStyles, IconButton, Collapse, Box } from "@material-ui/core";
+import { DoneAll, KeyboardArrowUp, KeyboardArrowDown } from "@material-ui/icons";
 
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
     },
 })
+
+const PersonRow = ({ person }) => {
+
+    const [collapse, setCollapse] = useState(false)
+
+    return (
+        <React.Fragment>
+            <TableRow>
+                <TableCell>
+                    <IconButton aria-label="expand row" size="small" onClick={() => setCollapse(!collapse)}>
+                        {collapse ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                    </IconButton>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                    {person.name}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                    {person.surname}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                    {person.email}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                    <DoneAll style={{ color: 'green' }} />
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                    <Collapse in={collapse} timeout="auto" unmountOnExit>
+                        <Box margin={1}>
+                            <p>Details</p>
+                        </Box>
+                    </Collapse>
+                </TableCell>
+            </TableRow>
+        </React.Fragment>
+    )
+}
 
 const GridPeopleAdded = ({ people }) => {
 
@@ -19,6 +57,7 @@ const GridPeopleAdded = ({ people }) => {
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
+                            <TableCell>  </TableCell>
                             <TableCell> <b>Person Name</b> </TableCell>
                             <TableCell> <b>Person Surname</b> </TableCell>
                             <TableCell> <b>Person Email</b> </TableCell>
@@ -27,20 +66,7 @@ const GridPeopleAdded = ({ people }) => {
                     </TableHead>
                     <TableBody>
                         {people.map((person) => (
-                            <TableRow key={person.name}>
-                                <TableCell component="th" scope="row">
-                                    {person.name}
-                                </TableCell>
-                                <TableCell component="th" scope="row">
-                                    {person.surname}
-                                </TableCell>
-                                <TableCell component="th" scope="row">
-                                    {person.email}
-                                </TableCell>
-                                <TableCell component="th" scope="row">
-                                    <DoneAll style={{ color: "green[500]" }} />
-                                </TableCell>
-                            </TableRow>
+                            <PersonRow key={person.name} person={person} />
                         ))}
                     </TableBody>
                 </Table>

@@ -28,7 +28,7 @@ const ListDocuments = ({ documents }) => {
                         </ListItemAvatar>
                         <ListItemText primary={d.name} />
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete">
+                            <IconButton edge="end" aria-label="delete" style={{ color: "red" }}>
                                 <Delete />
                             </IconButton>
                         </ListItemSecondaryAction>

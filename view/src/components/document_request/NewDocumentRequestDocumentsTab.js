@@ -82,7 +82,7 @@ const NewDocumentRequestDocumentsTab = (props) => {
                 </Grid>
 
                 <Grid item>
-                    <Button size="small" startIcon={<SearchOutlined />} color="secondary" variant="contained" className={classes.margin}>
+                    <Button size="small" startIcon={<SearchOutlined />} style={{ backgroundColor: 'green', color: 'white' }} variant="contained" className={classes.margin}>
                         Search
                     </Button>
                 </Grid>
