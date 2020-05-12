@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { TableContainer, Paper, Table, TableBody, TableRow, TableCell, TableHead, makeStyles, IconButton, Collapse, Box } from "@material-ui/core";
 import { DoneAll, KeyboardArrowUp, KeyboardArrowDown } from "@material-ui/icons";
+import { Empty } from "../utils/empty/Empty";
 
 const useStyles = makeStyles({
     table: {
@@ -53,26 +54,34 @@ const GridPeopleAdded = ({ people }) => {
 
     return (
         <div>
-            <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>  </TableCell>
-                            <TableCell> <b>Person Name</b> </TableCell>
-                            <TableCell> <b>Person Surname</b> </TableCell>
-                            <TableCell> <b>Person Email</b> </TableCell>
-                            <TableCell>  </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {people.map((person) => (
-                            <PersonRow key={person.name} person={person} />
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            {people.length > 0 ? (
+                <TableContainer component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>  </TableCell>
+                                <TableCell> <b>Person Name</b> </TableCell>
+                                <TableCell> <b>Person Surname</b> </TableCell>
+                                <TableCell> <b>Person Email</b> </TableCell>
+                                <TableCell>  </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {people.map((person) => (
+                                <PersonRow key={person.name} person={person} />
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            ) : (
+                    <Empty />
+                )}
         </div>
     )
+}
+
+GridPeopleAdded.defaultProps = {
+    people: []
 }
 
 const PeopleAddedToNewDocumentRequest = (props) => {

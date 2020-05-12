@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tabs, Tab, AppBar, Box, makeStyles } from "@material-ui/core";
+import { Tabs, Tab, AppBar, Box, makeStyles, Card, CardContent } from "@material-ui/core";
 import { PeopleAltOutlined, FileCopyOutlined, CheckCircle } from "@material-ui/icons";
 import NewDocumentRequestPersonTab from "./NewDocumentRequestPersonTab";
 import NewDocumentRequestDocumentsTab from "./NewDocumentRequestDocumentsTab";
@@ -38,6 +38,10 @@ export const NewDocumentRequest = (props) => {
     const classes = useStyles();
     const [activeTab, setActiveTab] = useState(0)
 
+    const saveRequest = () => {
+        console.log("Save request action")
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static" color="inherit">
@@ -46,18 +50,22 @@ export const NewDocumentRequest = (props) => {
                     <Tab label="Documents" icon={<FileCopyOutlined />} />
                     <Tab label="Conclusion" icon={<CheckCircle />} />
                 </Tabs>
-                <TabPanel value={activeTab} index={0}>
-                    <NewDocumentRequestPersonTab />
-                </TabPanel>
-
-                <TabPanel value={activeTab} index={1}>
-                    <NewDocumentRequestDocumentsTab />
-                </TabPanel>
-
-                <TabPanel value={activeTab} index={2}>
-                    <NewDocumentRequestConclusionTab />
-                </TabPanel>
             </AppBar>
+            <Card elevation={2}>
+                <CardContent>
+                    <TabPanel value={activeTab} index={0}>
+                        <NewDocumentRequestPersonTab />
+                    </TabPanel>
+
+                    <TabPanel value={activeTab} index={1}>
+                        <NewDocumentRequestDocumentsTab />
+                    </TabPanel>
+
+                    <TabPanel value={activeTab} index={2}>
+                        <NewDocumentRequestConclusionTab onSaveRequest={() => saveRequest()} />
+                    </TabPanel>
+                </CardContent>
+            </Card>
         </div>
     )
 }

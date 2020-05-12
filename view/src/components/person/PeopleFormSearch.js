@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid, TextField, Button, Divider } from "@material-ui/core";
+import { Grid, TextField, Button } from "@material-ui/core";
 
 const PeopleFormSearch = (props) => {
 
