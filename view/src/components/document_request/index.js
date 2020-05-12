@@ -57,7 +57,6 @@ const IndexDocumentRequest = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return state
 }
 

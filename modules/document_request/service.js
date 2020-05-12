@@ -5,7 +5,7 @@ module.exports = {
     async findAll() {
         const document_requests = await DocumentRequests.findAll(
             {
-                attributes: ['id', 'active'],
+                attributes: ['id', 'name', 'active'],
                 include: [{
                     model: DocumentRequestItem,
                     as: "documents_items",
@@ -35,6 +35,36 @@ module.exports = {
                 }]
             })
         return document_requests;
+    },
+
+
+    async open_document_requests_multiple_people(document_requests) {
+        try {
+            let requests_to_save = []
+            document_requests.people.forEach(person => {
+                const document_request = {
+                    "name": document_requests.name,
+                    "person": person,
+                    "documents_items": document_requests.documents_items
+                }
+                requests_to_save.push(document_request)
+            });
+
+            const requests_created = await DocumentRequests.bulkCreate(requests_to_save, {
+                include: [{
+                    model: DocumentRequestItem,
+                    as: "documents_items",
+                    include: [{ model: DocumentTypes, as: "document_type" }]
+                }, {
+                    model: Persons,
+                    as: "person"
+                }]
+            })
+
+            return requests_created
+        } catch (error) {
+            console.log(error)
+        }
     },
 
     async open_document_request(document_request) {

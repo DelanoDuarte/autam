@@ -83,4 +83,18 @@ router.post("/:id/add/item", (req, res) => {
         })
 })
 
+router.post("/create/multiple", (req, res) => {
+    const document_requests = { ...req.body }
+    documentRequestService.open_document_requests_multiple_people(document_requests)
+        .then((data) => {
+            res.status(200)
+            res.json({ "document_requests": data })
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(500)
+            res.json({ "data": "something bad happened" })
+        })
+})
+
 module.exports = router;

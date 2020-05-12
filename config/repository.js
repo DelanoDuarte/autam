@@ -24,10 +24,13 @@ const DocumentRequests = DocumentRequestModel(sequelize, Sequelize)
 DocumentRequestItem.belongsToMany(Documents, { as: "documents", through: 'DocumentRequestItemFiles' })
 DocumentRequestItem.belongsTo(DocumentTypes, { foreignKey: "document_type_id", as: "document_type" })
 
+DocumentTypes.hasOne(DocumentRequestItem)
+
 DocumentRequests.hasMany(DocumentRequestItem, { as: "documents_items" })
 DocumentRequestItem.belongsTo(DocumentRequests)
 
 DocumentRequests.belongsTo(Persons, { foreignKey: "person_id", as: "person" })
+
 Teams.hasMany(Persons)
 Persons.belongsTo(Teams)
 
