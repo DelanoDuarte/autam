@@ -16,7 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { HomeOutlined, FileCopyOutlined, Notifications } from "@material-ui/icons";
+import { HomeOutlined, FileCopyOutlined, Notifications, FindInPageOutlined, AccountBoxOutlined } from "@material-ui/icons";
 
 import { Link } from "react-router-dom";
 import { Badge } from '@material-ui/core';
@@ -164,6 +164,16 @@ export const Layout = (props) => {
                     <ListItem button key="Document Request" to="/document-request" component={Link}>
                         <ListItemIcon> <FileCopyOutlined /> </ListItemIcon>
                         <ListItemText primary="Document Request" />
+                    </ListItem>
+
+                    <ListItem button key="Document Types" to="/document-types" component={Link}>
+                        <ListItemIcon> <FindInPageOutlined /> </ListItemIcon>
+                        <ListItemText primary="Document Types" />
+                    </ListItem>
+
+                    <ListItem button key="People" to="/" component={Link}>
+                        <ListItemIcon> <AccountBoxOutlined /> </ListItemIcon>
+                        <ListItemText primary="People" />
                     </ListItem>
 
                 </List>

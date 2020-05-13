@@ -28,6 +28,19 @@ router.post("/", (req, res) => {
         })
 })
 
+router.get("/:id", (req, res) => {
+    const id = req.params.id
+    documentRequestService.findById(id)
+        .then(data => {
+            res.json({document_request: data})
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(500)
+            res.json({ "data": "something bad happened" })
+        })
+})
+
 router.post("/deactivate/:id", (req, res) => {
     const id = req.params.id
     documentRequestService.deactivate_request(id)
