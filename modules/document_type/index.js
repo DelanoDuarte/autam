@@ -26,4 +26,17 @@ router.post("/", (req, res) => {
         })
 })
 
+router.post("/find/name", (req, res) => {
+    const body = { ...req.body }
+    documentTypeService.findByName(body.name)
+        .then(data => {
+            res.json({ "document_types": data })
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(500)
+            res.json({ "data": "something bad happened" })
+        })
+})
+
 module.exports = router;
