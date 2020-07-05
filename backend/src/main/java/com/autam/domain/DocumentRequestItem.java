@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -33,8 +34,24 @@ public class DocumentRequestItem implements Serializable {
     @JoinColumn(name = "id_document_request")
     private DocumentRequest documentRequest;
 
+    @OneToOne
+    @JoinColumn(name = "id_document")
+    private Document document;
+
     @Column(columnDefinition = "boolean default true")
     private boolean active;
+
+    public DocumentRequestItem(DocumentType documentType, DocumentRequest documentRequest) {
+        this.documentType = documentType;
+        this.documentRequest = documentRequest;
+    }
+
+    public DocumentRequestItem(DocumentType documentType) {
+        this.documentType = documentType;
+    }
+
+    public DocumentRequestItem() {
+    }
 
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -70,6 +87,14 @@ public class DocumentRequestItem implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
     }
 
 }

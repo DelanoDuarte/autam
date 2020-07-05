@@ -36,7 +36,7 @@ public class DocumentRequest implements Serializable {
     @JoinColumn(name = "id_person")
     private Person person;
 
-    @Column
+    @Column(columnDefinition = "boolean default true")
     private boolean active;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "documentRequest")
@@ -46,6 +46,11 @@ public class DocumentRequest implements Serializable {
         this.name = name;
         this.person = person;
         this.documentRequestItems = documentRequestItems;
+    }
+
+    public DocumentRequest(String name, Person person) {
+        this.name = name;
+        this.person = person;
     }
 
     public DocumentRequest() {

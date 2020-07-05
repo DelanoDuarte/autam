@@ -4,9 +4,13 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -42,6 +46,36 @@ public class Person implements Serializable {
 
     @Column
     private int age;
+
+    @Column(columnDefinition = "boolean default true")
+    private boolean active;
+
+    @Enumerated(EnumType.STRING)
+    private PersonSex personSex;
+
+    @Enumerated(EnumType.STRING)
+    private PersonIdentificationType personIdentificationType;
+
+    @Column
+    private String phoneNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "id_profession")
+    private Profession profession;
+
+    @Column
+    private String identificationNumber;
+
+    @Column
+    private String socialSecurityNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "id_country")
+    private Country country;
+
+    @ManyToOne
+    @JoinColumn(name = "id_city")
+    private City city;
 
     public Long getId() {
         return id;
@@ -83,6 +117,78 @@ public class Person implements Serializable {
         this.age = age;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public PersonSex getPersonSex() {
+        return personSex;
+    }
+
+    public void setPersonSex(PersonSex personSex) {
+        this.personSex = personSex;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public String getIdentificationNumber() {
+        return identificationNumber;
+    }
+
+    public void setIdentificationNumber(String identificationNumber) {
+        this.identificationNumber = identificationNumber;
+    }
+
+    public PersonIdentificationType getPersonIdentificationType() {
+        return personIdentificationType;
+    }
+
+    public void setPersonIdentificationType(PersonIdentificationType personIdentificationType) {
+        this.personIdentificationType = personIdentificationType;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Profession getProfession() {
+        return profession;
+    }
+
+    public void setProfession(Profession profession) {
+        this.profession = profession;
+    }
+
+    public String getSocialSecurityNumber() {
+        return socialSecurityNumber;
+    }
+
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        this.socialSecurityNumber = socialSecurityNumber;
+    }
+
     public Person(@NotNull String name, @NotNull String surname, @Email String email, int age) {
         this.name = name;
         this.surname = surname;
@@ -91,7 +197,6 @@ public class Person implements Serializable {
     }
 
     public Person() {
-
     }
 
     public static PersonBuilder builder() {
@@ -122,6 +227,11 @@ public class Person implements Serializable {
 
         public PersonBuilder withAge(final int age) {
             setAge(age);
+            return this;
+        }
+
+        public PersonBuilder withSex(final PersonSex sex) {
+            setPersonSex(sex);
             return this;
         }
 
