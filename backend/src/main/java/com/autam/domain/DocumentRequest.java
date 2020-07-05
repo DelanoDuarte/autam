@@ -42,6 +42,9 @@ public class DocumentRequest implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "documentRequest")
     private Set<DocumentRequestItem> documentRequestItems = new HashSet<>();
 
+    private VisaType visaType;
+    private LegalizationProcess legalizationProcess;
+
     public DocumentRequest(String name, Person person, Set<DocumentRequestItem> documentRequestItems) {
         this.name = name;
         this.person = person;
