@@ -76,8 +76,11 @@ public class DocumentRequestService {
 
                 peopleAlreadySavedInDatabase.forEach(personOfDocumentRequest -> {
 
-                    DocumentRequest documentRequest = DocumentRequest.builder().withPerson(personOfDocumentRequest)
-                            .withName(docRequest.getName()).withDocumentItems(documentsRequestItems).build();
+                    DocumentRequest documentRequest = DocumentRequest.builder()
+                            .withPerson(personOfDocumentRequest)
+                            .withName(docRequest.getName())
+                            .withDocumentItems(documentsRequestItems)
+                            .build();
 
                     documentsRequests.add(documentRequest);
                 });

@@ -42,13 +42,27 @@ public class DocumentRequest implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "documentRequest")
     private Set<DocumentRequestItem> documentRequestItems = new HashSet<>();
 
-    private VisaType visaType;
-    private LegalizationProcess legalizationProcess;
+    @ManyToOne
+    @JoinColumn(name = "id_document_request_type")
+    private DocumentRequestType documentRequestType;
+
+    @ManyToOne
+    @JoinColumn(name = "id_document_request_process")
+    private DocumentRequestProcess documentRequestProcess;
 
     public DocumentRequest(String name, Person person, Set<DocumentRequestItem> documentRequestItems) {
         this.name = name;
         this.person = person;
         this.documentRequestItems = documentRequestItems;
+    }
+
+    public DocumentRequest(String name, Person person, Set<DocumentRequestItem> documentRequestItems,
+            DocumentRequestType documentRequestType, DocumentRequestProcess documentRequestProcess) {
+        this.name = name;
+        this.person = person;
+        this.documentRequestItems = documentRequestItems;
+        this.documentRequestType = documentRequestType;
+        this.documentRequestProcess = documentRequestProcess;
     }
 
     public DocumentRequest(String name, Person person) {
@@ -104,6 +118,22 @@ public class DocumentRequest implements Serializable {
         return new DocumentRequestBuilder();
     }
 
+    public DocumentRequestProcess getDocumentRequestProcess() {
+        return documentRequestProcess;
+    }
+
+    public void setDocumentRequestProcess(DocumentRequestProcess documentRequestProcess) {
+        this.documentRequestProcess = documentRequestProcess;
+    }
+
+    public DocumentRequestType getDocumentRequestType() {
+        return documentRequestType;
+    }
+
+    public void setDocumentRequestType(DocumentRequestType documentRequestType) {
+        this.documentRequestType = documentRequestType;
+    }
+
     public static class DocumentRequestBuilder extends DocumentRequest {
 
         /**
@@ -131,8 +161,19 @@ public class DocumentRequest implements Serializable {
             return this;
         }
 
+        public DocumentRequestBuilder withDocumentRequestProcess(DocumentRequestProcess documentRequestProcess) {
+            setDocumentRequestProcess(documentRequestProcess);
+            return this;
+        }
+
+        public DocumentRequestBuilder withDocumentRequestType(DocumentRequestType documentRequestType) {
+            setDocumentRequestType(documentRequestType);
+            return this;
+        }
+
         public DocumentRequest build() {
-            return new DocumentRequest(getName(), getPerson(), getDocumentRequestItems());
+            return new DocumentRequest(getName(), getPerson(), getDocumentRequestItems(), getDocumentRequestType(),
+                    getDocumentRequestProcess());
         }
     }
 }

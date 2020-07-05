@@ -10,9 +10,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_legalization_process")
-public class LegalizationProcess {
-    
+@Table(name = "tb_document_request_process")
+public class DocumentRequestProcess {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,8 +22,17 @@ public class LegalizationProcess {
     private Person person;
 
     @ManyToOne
-    @JoinColumn(name = "id_visa_type")
-    private VisaType visaType;
+    @JoinColumn(name = "id_document_request_type")
+    private DocumentRequestType documentRequestType;
+
+    public DocumentRequestProcess() {
+
+    }
+
+    public DocumentRequestProcess(Person person, DocumentRequestType documentRequestType) {
+        this.person = person;
+        this.documentRequestType = documentRequestType;
+    }
 
     public Long getId() {
         return id;
@@ -41,12 +50,11 @@ public class LegalizationProcess {
         this.person = person;
     }
 
-    public VisaType getVisaType() {
-        return visaType;
+    public DocumentRequestType getDocumentRequestType() {
+        return documentRequestType;
     }
 
-    public void setVisaType(VisaType visaType) {
-        this.visaType = visaType;
+    public void setDocumentRequestType(DocumentRequestType documentRequestType) {
+        this.documentRequestType = documentRequestType;
     }
-
 }

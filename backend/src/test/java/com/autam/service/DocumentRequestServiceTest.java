@@ -40,10 +40,16 @@ public class DocumentRequestServiceTest {
         @Test
         public void should_createMultipeDocumentRequestsWithPeopleNonSavedWithoutDocumentsItems() {
 
-                Person firstPerson = Person.builder().withName("James").withSurname("Jones").withAge(36)
-                                .withEmail("jjones@email.com").build();
-                Person secondPerson = Person.builder().withName("Jamal").withSurname("Jones").withAge(36)
-                                .withEmail("jajones@email.com").build();
+                Person firstPerson = Person.builder().withName("James")
+                                .withSurname("Jones")
+                                .withAge(36)
+                                .withEmail("jjones@email.com")
+                                .build();
+                Person secondPerson = Person.builder().withName("Jamal")
+                                .withSurname("Jones")
+                                .withAge(36)
+                                .withEmail("jajones@email.com")
+                                .build();
 
                 List<Person> persons = Arrays.asList(firstPerson, secondPerson);
 
@@ -88,7 +94,7 @@ public class DocumentRequestServiceTest {
 
                 assertTrue(documentsRequested.isPresent());
                 assertTrue(documentsRequested.get().hasAnyWarning());
-                assertTrue(documentsRequested.get().getMessages().size() == 1);
+                assertTrue(documentsRequested.get().getMessages().size() == 2);
         }
 
 }

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_visa_type")
-public class VisaType {
+public class DocumentRequestType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,19 @@ public class VisaType {
 
     @Column(columnDefinition = "boolean default true")
     private boolean active;
+
+    public DocumentRequestType() {
+        super();
+    }
+
+    public DocumentRequestType(@NotNull String name) {
+        this.name = name;
+    }
+
+    public DocumentRequestType(Long id, @NotNull String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
