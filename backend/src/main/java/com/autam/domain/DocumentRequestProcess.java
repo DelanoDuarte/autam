@@ -9,8 +9,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "tb_document_request_process")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
 public class DocumentRequestProcess {
 
     @Id
@@ -24,37 +33,4 @@ public class DocumentRequestProcess {
     @ManyToOne
     @JoinColumn(name = "id_document_request_type")
     private DocumentRequestType documentRequestType;
-
-    public DocumentRequestProcess() {
-
-    }
-
-    public DocumentRequestProcess(Person person, DocumentRequestType documentRequestType) {
-        this.person = person;
-        this.documentRequestType = documentRequestType;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public DocumentRequestType getDocumentRequestType() {
-        return documentRequestType;
-    }
-
-    public void setDocumentRequestType(DocumentRequestType documentRequestType) {
-        this.documentRequestType = documentRequestType;
-    }
 }
