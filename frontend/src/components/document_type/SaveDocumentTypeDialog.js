@@ -16,7 +16,7 @@ const DialogAddDocumentType = (props) => {
     const [documentType, setDocumentType] = useState("")
 
     const addDocumentType = (docType) => {
-        const documentType = { name: docType }
+        const documentType = { description: docType }
         props.documentTypeToAdd(documentType)
         props.onDialogClose()
     }

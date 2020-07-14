@@ -3,6 +3,8 @@ package com.autam.api;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 public class BaseAPI<T, ID> implements IBaseApi<T, ID> {
 
     private JpaRepository repository;
-    private Class<?> service;
 
     public BaseAPI(final JpaRepository repository) {
         this.repository = repository;
-    }
-
-    public BaseAPI(final JpaRepository repository, Class<?> service) {
-        this.repository = repository;
-        this.service = service;
     }
 
     @Override
@@ -70,8 +66,28 @@ public class BaseAPI<T, ID> implements IBaseApi<T, ID> {
 
     @Override
     public ResponseEntity<?> deleteById(ID id) {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            repository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            log.error("Error on delete by id on controller from class: " + this.getClass().getSimpleName() + ". Error: "
+                    + e.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
+    @Override
+    public ResponseEntity<Page<T>> findAllPaginated(Integer page, Integer size) {
+        try {
+            Optional<Page<T>> tsFiltered = Optional.of(repository.findAll(PageRequest.of(page, size)));
+            if (tsFiltered.isPresent())
+                return ResponseEntity.ok(tsFiltered.get());
+            else
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (Exception e) {
+            log.error("Error on find all paginated on controller from class: " + this.getClass().getSimpleName()
+                    + ". Error: " + e.getMessage());
+        }
+        return null;
+    }
 }

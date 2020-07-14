@@ -1,6 +1,5 @@
 package com.autam.api;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.autam.domain.DocumentRequestProcess;
@@ -18,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/document_request_process")
-public class DocumentRequestProcessController implements IBaseApi<DocumentRequestProcess, Long> {
+public class DocumentRequestProcessController extends BaseAPI<DocumentRequestProcess, Long> {
 
     private DocumentRequestProcessRepository documentRequestProcessRepository;
 
@@ -27,6 +26,8 @@ public class DocumentRequestProcessController implements IBaseApi<DocumentReques
     @Autowired
     public DocumentRequestProcessController(final DocumentRequestProcessRepository documentRequestProcessRepository,
             final DocumentRequestProcessService documentRequestProcessService) {
+
+        super(documentRequestProcessRepository);
         this.documentRequestProcessRepository = documentRequestProcessRepository;
         this.documentRequestProcessService = documentRequestProcessService;
     }
@@ -43,32 +44,5 @@ public class DocumentRequestProcessController implements IBaseApi<DocumentReques
             log.error("Error on create a new document request process: " + e.getMessage());
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
-
-    @Override
-    public ResponseEntity<List<DocumentRequestProcess>> findAll() {
-        try {
-            Optional<List<DocumentRequestProcess>> all = Optional.of(documentRequestProcessRepository.findAll());
-
-            if (all.isPresent())
-                return ResponseEntity.ok(all.get());
-            else
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch (Exception e) {
-            log.error("Error on find all documents requests process: " + e.getMessage());
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    }
-
-    @Override
-    public ResponseEntity<DocumentRequestProcess> findOneById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<?> deleteById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
     }
 }

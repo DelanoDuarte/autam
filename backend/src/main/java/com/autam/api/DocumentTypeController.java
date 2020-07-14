@@ -11,6 +11,7 @@ import com.autam.repository.DocumentTypeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/document-type")
+@RequestMapping(value = "/document-type", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DocumentTypeController {
 
     private static Logger log = Logger.getLogger(DocumentTypeController.class.getSimpleName());
@@ -48,7 +49,7 @@ public class DocumentTypeController {
     }
 
     @PostMapping
-    public ResponseEntity<DocumentType> create(@RequestBody @NotNull DocumentType documentType) {
+    public ResponseEntity<DocumentType> create(@RequestBody DocumentType documentType) {
         try {
             Optional<DocumentType> docType = Optional.of(documentTypeRepository.save(documentType));
             if (docType.isPresent())

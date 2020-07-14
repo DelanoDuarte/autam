@@ -10,7 +10,7 @@ export const IndexDocumentType = (props) => {
     const { enqueueSnackbar } = useSnackbar()
     const [documents, setDocuments] = useState([])
 
-    const fetchDocumentTypes = () => DocumentTypeAPI.fetchAllDocumentTypes().then(data => setDocuments(data.document_types))
+    const fetchDocumentTypes = () => DocumentTypeAPI.fetchAllDocumentTypes().then(data => setDocuments(data))
 
     useEffect(() => {
         fetchDocumentTypes()

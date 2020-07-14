@@ -22,9 +22,9 @@ const DocumentsTabGrid = (props) => {
                     </TableHead>
                     <TableBody>
                         {props.documents.map((document) => (
-                            <TableRow key={document.name}>
+                            <TableRow key={document.id}>
                                 <TableCell component="th" scope="row">
-                                    {document.name}
+                                    {document.description}
                                 </TableCell>
                             </TableRow>
                         ))}

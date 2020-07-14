@@ -18,5 +18,4 @@ public class DocumentRequestItemFolderController extends BaseAPI<DocumentRequest
             final DocumentRequestItemFolderRepository documentRequestItemFolderRepository) {
         super(documentRequestItemFolderRepository);
     }
-
 }
