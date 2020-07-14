@@ -7,9 +7,14 @@ const initialState = {
 export const documentReducer = (state = initialState, action) => {
     switch (action.type) {
         case DOCUMENT_ACTIONS.ADD_DOCUMENT:
-            let doc_list = state.documents
-            doc_list.push(action.payload)
-            return { ...state, documents: doc_list }
+            const documents = state.documents
+            const documentsTypes = action.payload
+            if (documentsTypes.length > 0) {
+                documentsTypes.forEach(d => {
+                    documents.push(d)
+                });
+            }
+            return { ...state, documents: documents }
         default:
             return state
     }
