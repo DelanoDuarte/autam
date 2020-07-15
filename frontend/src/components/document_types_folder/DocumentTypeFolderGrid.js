@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     },
 })
 
-const DocumentsTabGrid = (props) => {
+const DocumentTypeFolderGrid = (props) => {
 
     const classes = useStyles()
 
@@ -19,14 +19,25 @@ const DocumentsTabGrid = (props) => {
                         <TableHead>
                             <TableRow>
                                 <TableCell> <b>Document Name</b> </TableCell>
+                                <TableCell> <b>Document Types</b> </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {props.documents.map((document) => (
                                 <TableRow key={document.id}>
                                     <TableCell component="th" scope="row">
-                                        {document.description}
+                                        {document.name}
                                     </TableCell>
+
+                                    {document.documentTypes ? (
+                                        <TableCell component="th" scope="row">
+                                            {document.documentTypes.length}
+                                        </TableCell>
+                                    ) : (
+                                            <TableCell component="th" scope="row">
+                                                No Document Types Added
+                                            </TableCell>
+                                        )}
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -43,9 +54,9 @@ const DocumentsTabGrid = (props) => {
     }
 }
 
-DocumentsTabGrid.defaultProps = {
+DocumentTypeFolderGrid.defaultProps = {
     documents: []
 };
 
-export default DocumentsTabGrid
+export default DocumentTypeFolderGrid
 

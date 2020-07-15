@@ -1,25 +1,25 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import { Badge } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
-import { HomeOutlined, FileCopyOutlined, Notifications, FindInPageOutlined, AccountBoxOutlined } from "@material-ui/icons";
-
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { AccountBoxOutlined, FileCopyOutlined, FindInPageOutlined, Flag, FolderOpenOutlined, HomeOutlined, Notifications } from "@material-ui/icons";
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MenuIcon from '@material-ui/icons/Menu';
+import clsx from 'clsx';
+import React from 'react';
 import { Link } from "react-router-dom";
-import { Badge } from '@material-ui/core';
+
+
 
 const drawerWidth = 240;
 
@@ -171,10 +171,21 @@ export const Layout = (props) => {
                         <ListItemText primary="Document Types" />
                     </ListItem>
 
+                    <ListItem button key="Document Types Folder" to="/document-types-folder" component={Link}>
+                        <ListItemIcon> <FolderOpenOutlined /> </ListItemIcon>
+                        <ListItemText primary="Document Types Folder" />
+                    </ListItem>
+
+                    <ListItem button key="Document Request Process" to="/" component={Link}>
+                        <ListItemIcon> <Flag /> </ListItemIcon>
+                        <ListItemText primary="Document Request Process" />
+                    </ListItem>
+
                     <ListItem button key="People" to="/" component={Link}>
                         <ListItemIcon> <AccountBoxOutlined /> </ListItemIcon>
                         <ListItemText primary="People" />
                     </ListItem>
+
 
                 </List>
                 <Divider />

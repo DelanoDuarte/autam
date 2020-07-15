@@ -11,7 +11,8 @@ export const documentReducer = (state = initialState, action) => {
             const documentsTypes = action.payload
             if (documentsTypes.length > 0) {
                 documentsTypes.forEach(d => {
-                    documents.push(d)
+                    if (!documents.some(doc => d.id === doc.id))
+                        documents.push(d)
                 });
             }
             return { ...state, documents: documents }

@@ -22,13 +22,13 @@ const ListDocuments = ({ documents }) => {
             {documents.length > 0 ? (
                 <List className={classes.root}>
                     {documents.map(d => (
-                        <ListItem button key={d.name}>
+                        <ListItem button key={d.id}>
                             <ListItemAvatar>
                                 <Avatar>
                                     <FolderOpen />
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={d.name} />
+                            <ListItemText primary={d.description} />
                             <ListItemSecondaryAction>
                                 <IconButton edge="end" aria-label="delete" style={{ color: "red" }}>
                                     <Delete />

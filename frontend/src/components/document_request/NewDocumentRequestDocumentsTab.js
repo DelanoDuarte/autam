@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, makeStyles } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, makeStyles, Paper } from "@material-ui/core";
 import { SearchOutlined } from "@material-ui/icons";
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,10 +15,15 @@ const useStyles = makeStyles((theme) => ({
     extendedIcon: {
         marginRight: theme.spacing(1),
     },
+    dialogPaper: {
+        minHeight: '80vh',
+        maxHeight: '80vh',
+    },
 }));
 
 const SearchDialog = (props) => {
 
+    const classes = useStyles()
     const [docTypes, setDocTypes] = useState([])
     const dispatch = useDispatch()
 
@@ -30,11 +35,16 @@ const SearchDialog = (props) => {
     return (
         <div>
             <Dialog open={props.dialogOpen} onClose={() => props.onDialogClose()}
-                maxWidth="md" fullWidth={true} scroll="paper">
+                maxWidth="md" fullWidth={true} scroll="paper"
+                classes={{ paper: classes.dialogPaper }}>
                 <DialogTitle id="form-dialog-title">Search a document type</DialogTitle>
                 <DialogContent dividers={true}>
-                    <SearchDocumentType documentTypes={props.documentTypes} documentTypesToAdd={(dts) => setDocTypes(dts)} />
+
+                    <Paper elevation={3} >
+                        <SearchDocumentType documentTypes={props.documentTypes} documentTypesToAdd={(dts) => setDocTypes(dts)} />
+                    </Paper>
                     <Divider />
+
                 </DialogContent>
                 <DialogActions>
                     <Button disabled={docTypes.length === 0}

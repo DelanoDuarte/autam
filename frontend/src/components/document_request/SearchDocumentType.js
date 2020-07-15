@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import { useSelector } from "react-redux";
 
 export const SearchDocumentType = ({ documentTypes, documentTypesToAdd }) => {
+
+    const documentsTypeStored = useSelector(state => state.documents.documents)
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -18,6 +21,7 @@ export const SearchDocumentType = ({ documentTypes, documentTypesToAdd }) => {
                     classNamePrefix="select"
                     isLoading={isLoading}
                     isSearchable={true}
+                    defaultValue={documentsTypeStored.map(d => ({ value: d.id, label: d.description }))}
                     key="id"
                     isMulti
                     name="color"

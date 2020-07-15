@@ -1,7 +1,6 @@
 package com.autam.domain;
 
-import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,18 +20,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tb_group")
+@Table(name = "tb_document_type_folder")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class Group implements Serializable {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+@AllArgsConstructor
+@NoArgsConstructor
+public class DocumentTypeFolder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +36,6 @@ public class Group implements Serializable {
     @NotNull
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REMOVE })
-    private Set<Person> persons;
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
+    private List<DocumentType> documentTypes;
 }
