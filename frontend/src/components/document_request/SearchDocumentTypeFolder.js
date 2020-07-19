@@ -1,9 +1,9 @@
-import { Divider, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Icon } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import { Divider, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
+import { CheckCircle } from "@material-ui/icons";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Select from "react-select";
 import DocumentsTabGrid from "./DocumentsTabGrid";
-import { CheckCircle } from "@material-ui/icons";
 
 
 const useStyles = makeStyles({
@@ -61,28 +61,13 @@ DocumentsTabGrid.defaultProps = {
 
 export const SearchDocumentTypeFolder = ({ documentTypeFolders, documentTypesToAdd }) => {
 
-    const documentsTypeStored = useSelector(state => state.documents.documents)
     const [isLoading, setIsLoading] = useState(false)
-    const [selectedDocumentsOnStore, setSelectedDocumentsOnStore] = useState([])
 
     const [docTypesFromFolder, setDocTypesFromFolder] = useState([])
 
-    useEffect(() => {
-        filterDocumentTypeFolderByDocumentTypeSelected()
-    }, [])
-
-    const filterDocumentTypeFolderByDocumentTypeSelected = () => {
-        if (documentTypeFolders && documentTypeFolders.documentTypes) {
-            const docTypes = documentTypeFolders.documentTypes
-
-            const filteredDocTypes = docTypes.filter((o) => documentsTypeStored.indexOf(o) !== -1)
-            setSelectedDocumentsOnStore(filteredDocTypes.map(d => ({ value: d.id, label: d.description })))
-        }
-    }
-
     const formatSelectedValuesAndAdd = (docTypesFolders) => {
         if (docTypesFolders) {
-            const documentTypes = docTypesFolders.value.documentTypes
+            const documentTypes = docTypesFolders.obj.documentTypes
             setDocTypesFromFolder(documentTypes)
             documentTypesToAdd(documentTypes)
         }
@@ -96,7 +81,6 @@ export const SearchDocumentTypeFolder = ({ documentTypeFolders, documentTypesToA
                     classNamePrefix="select"
                     isLoading={isLoading}
                     isSearchable={true}
-                    defaultValue={selectedDocumentsOnStore}
                     key="id"
                     name="color"
                     options={documentTypeFolders}

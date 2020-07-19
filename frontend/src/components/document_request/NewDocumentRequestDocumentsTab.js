@@ -34,7 +34,7 @@ const SearchDialog = (props) => {
         DocumentTypeAPI.fetchAllDocumentTypes()
             .then(data => {
                 if (data) {
-                    const mapDataToOptionValue = data.map(d => ({ value: d, label: d.description }))
+                    const mapDataToOptionValue = data.map(d => ({ value: d.id, label: d.description, obj: d }))
                     setDocumentTypes(mapDataToOptionValue)
                 }
             })
@@ -85,7 +85,7 @@ const SearchDialogDocumentTypeFolder = (props) => {
         DocumentTypeFolderAPI.findAll()
             .then(data => {
                 if (data) {
-                    const mapDataToOptionValue = data.map(d => ({ value: d, label: d.name }))
+                    const mapDataToOptionValue = data.map(d => ({ value: d.id, label: d.name, obj: d }))
                     setDocumentTypeTypeFolders(mapDataToOptionValue)
                 }
             })
@@ -101,7 +101,7 @@ const SearchDialogDocumentTypeFolder = (props) => {
             <Dialog open={props.dialogOpen} onClose={() => props.onDialogClose()}
                 maxWidth="md" fullWidth={true} scroll="paper"
                 classes={{ paper: classes.dialogPaper }}>
-                <DialogTitle id="form-dialog-title">Search a document type</DialogTitle>
+                <DialogTitle id="form-dialog-title">Search a Document Type Folder</DialogTitle>
                 <DialogContent dividers={true}>
 
                     <Paper elevation={3} >

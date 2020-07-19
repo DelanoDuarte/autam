@@ -33,7 +33,9 @@ const DocumentTypeFolderGrid = (props) => {
 
                                     {document.documentTypes ? (
                                         <TableCell component="th" scope="row">
-                                            <IconButton aria-label="docTypes" onClick={() => props.onDocumentTypeDetails(document.documentTypes)}>
+                                            <IconButton aria-label="docTypes"
+                                                onClick={() => props.onDocumentTypeDetails(document.documentTypes)}
+                                                size="small">
                                                 <Badge badgeContent={document.documentTypes.length} color="primary">
                                                     <DescriptionIcon />
                                                 </Badge>

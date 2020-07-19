@@ -9,7 +9,7 @@ export const SearchDocumentType = ({ documentTypes, documentTypesToAdd }) => {
     const [isLoading, setIsLoading] = useState(false)
 
     const formatSelectedValues = (docTypes) => {
-        const documentTypes = docTypes.map(d => d.value)
+        const documentTypes = docTypes.map(d => d.obj)
         documentTypesToAdd(documentTypes)
     }
 
@@ -21,7 +21,7 @@ export const SearchDocumentType = ({ documentTypes, documentTypesToAdd }) => {
                     classNamePrefix="select"
                     isLoading={isLoading}
                     isSearchable={true}
-                    defaultValue={documentsTypeStored.map(d => ({ value: d.id, label: d.description }))}
+                    defaultValue={documentsTypeStored.map(d => ({ value: d.id, label: d.description, obj: d }))}
                     key="id"
                     isMulti
                     name="color"

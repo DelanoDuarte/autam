@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tb_visa_type")
+@Table(name = "tb_request_type")
 public class DocumentRequestType {
 
     @Id
