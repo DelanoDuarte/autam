@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/document_request_item_folder")
+@RequestMapping("/document-request-item-folder")
 public class DocumentRequestItemFolderController extends BaseAPI<DocumentRequestItemFolder, Long> {
 
     private DocumentRequestItemFolderRepository documentRequestItemFolderRepository;

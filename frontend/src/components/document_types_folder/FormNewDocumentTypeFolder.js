@@ -1,12 +1,19 @@
-import { Button } from "@material-ui/core";
-import MaterialUIInput from "@material-ui/core/Input";
+import { Button, Grid, makeStyles, TextField, FormControlLabel, InputLabel } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
 import { DocumentTypeAPI } from "../../services/DocumentTypeAPI";
 
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    }
+}));
+
 export const FormNewDocumentTypeFolder = (props) => {
 
+    const classes = useStyles();
     const { control, handleSubmit } = useForm()
     const [documentTypes, setDocumentTypes] = useState([])
 
@@ -21,38 +28,55 @@ export const FormNewDocumentTypeFolder = (props) => {
 
     const onSubmit = data => {
         console.log(data)
+        const docTypes = data.documentTypes.map(d => d.obj)
+        const docTypeFolder = {
+            name: data.name,
+            documentTypes: docTypes
+        }
+        props.onSaveDocumentTypeFolder(docTypeFolder)
     };
 
     return (
-        <div>
+        <React.Fragment>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Controller
-                    as={MaterialUIInput}
-                    name="name"
-                    control={control}
-                    defaultValue=""
-                    rules={{ required: true }}
-                    className="materialUIInput"
-                />
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={6} >
+                        <Controller
+                            name="name"
+                            control={control}
+                            defaultValue=""
+                            rules={{ required: true }}
+                            render={props => <TextField label="Name" fullWidth required {...props} />}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <InputLabel htmlFor="select-doc-types">Document Types</InputLabel>
+                        <Controller
+                            name="documentTypes"
+                            control={control}
+                            defaultValue={[]}
+                            rules={{ required: true }}
+                            render={props =>
+                                <Select
+                                    id="select-doc-types"
+                                    options={documentTypes}
+                                    isMulti
+                                    className="basic-single"
+                                    classNamePrefix="select"
+                                    isSearchable={true}
+                                    {...props} />} />
+                    </Grid>
 
-                <br />
 
-                <Controller
-                    name="documentTypes"
-                    control={control}
-                    defaultValue={[]}
-                    rules={{ required: true }}
-                    render={props =>
-                        <Select options={documentTypes} isMulti
-                            className="basic-single"
-                            classNamePrefix="select"
-                            isSearchable={true}
-                            {...props} />} />
+                    <Grid item xs={6}>
+                        <Button type="submit" variant="contained"
+                            color="primary">
+                            Save
+                        </Button>
+                    </Grid>
+                </Grid>
 
-                <Button type="submit" color="primary">
-                    Save
-                </Button>
             </form>
-        </div>
+        </React.Fragment>
     )
 } 

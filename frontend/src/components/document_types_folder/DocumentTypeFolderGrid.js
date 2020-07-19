@@ -1,4 +1,5 @@
-import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
+import { Badge, IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
+import DescriptionIcon from '@material-ui/icons/Description';
 import React from "react";
 
 const useStyles = makeStyles({
@@ -6,6 +7,7 @@ const useStyles = makeStyles({
         minWidth: 650,
     },
 })
+
 
 const DocumentTypeFolderGrid = (props) => {
 
@@ -31,7 +33,12 @@ const DocumentTypeFolderGrid = (props) => {
 
                                     {document.documentTypes ? (
                                         <TableCell component="th" scope="row">
-                                            {document.documentTypes.length}
+                                            <IconButton aria-label="docTypes" onClick={() => props.onDocumentTypeDetails(document.documentTypes)}>
+                                                <Badge badgeContent={document.documentTypes.length} color="primary">
+                                                    <DescriptionIcon />
+                                                </Badge>
+                                            </IconButton>
+
                                         </TableCell>
                                     ) : (
                                             <TableCell component="th" scope="row">

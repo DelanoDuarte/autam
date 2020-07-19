@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/document_request_process")
+@RequestMapping("/document-request-process")
 public class DocumentRequestProcessController extends BaseAPI<DocumentRequestProcess, Long> {
 
     private DocumentRequestProcessRepository documentRequestProcessRepository;

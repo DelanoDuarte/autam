@@ -20,7 +20,7 @@ export const IndexDocumentTypeFolder = (props) => {
 
     return (
         <div>
-            <Typography variant="h4">Document Types</Typography>
+            <Typography variant="h4">Document Type Folder</Typography>
             <Divider />
             <br />
 

@@ -18,7 +18,7 @@ const DocumentsTabGrid = (props) => {
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell> <b>Document Name</b> </TableCell>
+                                <TableCell> <b>Document Type</b> </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
