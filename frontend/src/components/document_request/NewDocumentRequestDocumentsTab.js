@@ -8,6 +8,7 @@ import DocumentsTabGrid from "./DocumentsTabGrid";
 import { SearchDocumentType } from "./SearchDocumentType";
 import { SearchDocumentTypeFolder } from "./SearchDocumentTypeFolder";
 import { DocumentTypeFolderAPI } from "../../services/DocumentTypeFolderAPI";
+import { useSnackbar } from "notistack";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,9 +27,11 @@ const useStyles = makeStyles((theme) => ({
 const SearchDialog = (props) => {
 
     const classes = useStyles()
+    const dispatch = useDispatch()
+    const { enqueueSnackbar } = useSnackbar()
+
     const [docTypes, setDocTypes] = useState([])
     const [documentTypes, setDocumentTypes] = useState([])
-    const dispatch = useDispatch()
 
     useEffect(() => {
         DocumentTypeAPI.fetchAllDocumentTypes()
@@ -42,6 +45,7 @@ const SearchDialog = (props) => {
 
     const addDocumentType = () => {
         dispatch({ type: DOCUMENT_ACTIONS.ADD_DOCUMENT, payload: docTypes })
+        enqueueSnackbar("Document Types Sucessfully Added to Request", { variant: "success" })
         props.onDialogClose()
     }
 
@@ -77,9 +81,11 @@ const SearchDialog = (props) => {
 const SearchDialogDocumentTypeFolder = (props) => {
 
     const classes = useStyles()
+    const dispatch = useDispatch()
+    const { enqueueSnackbar } = useSnackbar()
+
     const [docTypes, setDocTypes] = useState([])
     const [documentTypeFolders, setDocumentTypeTypeFolders] = useState([])
-    const dispatch = useDispatch()
 
     useEffect(() => {
         DocumentTypeFolderAPI.findAll()
@@ -93,6 +99,7 @@ const SearchDialogDocumentTypeFolder = (props) => {
 
     const addDocumentType = () => {
         dispatch({ type: DOCUMENT_ACTIONS.ADD_DOCUMENT, payload: docTypes })
+        enqueueSnackbar("Document Types Sucessfully Added to Request", { variant: "success" })
         props.onDialogClose()
     }
 

@@ -18,7 +18,7 @@ const NewDocumentRequestConclusionTab = (props) => {
 
     const classes = useStyles()
 
-    const requesHasPeopleAndDocuments = () => props.people.people.length === 0 && props.documents.documents.length === 0
+    const requestHasPeopleAndDocuments = () => props.people.people.length === 0 && props.documents.documents.length === 0
     const onSaveRequest = () => props.onSaveRequest()
 
     return (
@@ -33,9 +33,9 @@ const NewDocumentRequestConclusionTab = (props) => {
                         style={{ backgroundColor: 'green', color: 'white' }}
                         variant="contained"
                         className={classes.margin}
-                        disabled={requesHasPeopleAndDocuments()}
+                        disabled={requestHasPeopleAndDocuments()}
                         onClick={() => onSaveRequest()}>
-                        Save Request
+                        Open Requests
                     </Button>
                 </Grid>
             </Grid>

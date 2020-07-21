@@ -1,4 +1,4 @@
-import { Badge } from '@material-ui/core';
+import { Badge, Collapse } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -11,12 +11,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { AccountBoxOutlined, FileCopyOutlined, FindInPageOutlined, Flag, FolderOpenOutlined, HomeOutlined, Notifications } from "@material-ui/icons";
+import { AccountBoxOutlined, Add, ExpandLess, ExpandMore, FileCopyOutlined, FileCopyRounded, FindInPageOutlined, Flag, FolderOpenOutlined, HomeOutlined, Notifications, ListAlt, Settings } from "@material-ui/icons";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 
 
@@ -86,7 +86,39 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
+    nested: {
+        paddingLeft: theme.spacing(4),
+    },
 }));
+
+
+const NestedMenuListItem = ({ label, icon, children }) => {
+
+    const [open, setOpen] = useState(false)
+
+    return (
+        <React.Fragment>
+            <ListItem button onClick={() => setOpen(!open)}>
+                <ListItemIcon>
+                    {icon}
+                </ListItemIcon>
+                <ListItemText primary={label} />
+                {open ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                    {/* <ListItem button className={classes.nested}>
+                        <ListItemIcon>
+                            <StarBorder />
+                        </ListItemIcon>
+                        <ListItemText primary="Starred" />
+                    </ListItem> */}
+                    {children}
+                </List>
+            </Collapse>
+        </React.Fragment>
+    )
+}
 
 export const Layout = (props) => {
 
@@ -156,25 +188,44 @@ export const Layout = (props) => {
                 </div>
                 <Divider />
                 <List>
+
                     <ListItem button key="Home" to="/" component={Link}>
                         <ListItemIcon> <HomeOutlined /></ListItemIcon>
                         <ListItemText primary="Home" />
                     </ListItem>
 
-                    <ListItem button key="Document Request" to="/document-request" component={Link}>
-                        <ListItemIcon> <FileCopyOutlined /> </ListItemIcon>
-                        <ListItemText primary="Document Request" />
-                    </ListItem>
+                    <NestedMenuListItem label="Request" icon={<FileCopyOutlined />}>
+                        <ListItem button className={classes.nested} to="/document-request" component={Link}>
+                            <ListItemIcon>
+                                <Add />
+                            </ListItemIcon>
+                            <ListItemText primary="New Request" />
+                        </ListItem>
+                        <ListItem button className={classes.nested} to="/" component={Link}>
+                            <ListItemIcon>
+                                <ListAlt />
+                            </ListItemIcon>
+                            <ListItemText primary="All Requests" />
+                        </ListItem>
+                    </NestedMenuListItem>
 
-                    <ListItem button key="Document Types" to="/document-types" component={Link}>
-                        <ListItemIcon> <FindInPageOutlined /> </ListItemIcon>
-                        <ListItemText primary="Document Types" />
-                    </ListItem>
+                    <NestedMenuListItem label="Parameters" icon={<Settings />}>
+                        <ListItem button className={classes.nested} key="Document Types" to="/document-types" component={Link}>
+                            <ListItemIcon> <FindInPageOutlined /> </ListItemIcon>
+                            <ListItemText primary="Document Types" />
+                        </ListItem>
 
-                    <ListItem button key="Document Types Folder" to="/document-types-folder" component={Link}>
-                        <ListItemIcon> <FolderOpenOutlined /> </ListItemIcon>
-                        <ListItemText primary="Document Types Folder" />
-                    </ListItem>
+                        <ListItem button className={classes.nested} key="Document Types Folder" to="/document-types-folder" component={Link}>
+                            <ListItemIcon> <FolderOpenOutlined /> </ListItemIcon>
+                            <ListItemText primary="Document Types Folder" />
+                        </ListItem>
+
+                        <ListItem button className={classes.nested} key="Document Request Type" to="/document-request-type" component={Link}>
+                            <ListItemIcon> <FileCopyRounded /> </ListItemIcon>
+                            <ListItemText primary="Document Request Type" />
+                        </ListItem>
+                    </NestedMenuListItem>
+
 
                     <ListItem button key="Document Request Process" to="/" component={Link}>
                         <ListItemIcon> <Flag /> </ListItemIcon>
