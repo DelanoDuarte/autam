@@ -89,11 +89,15 @@ const useStyles = makeStyles((theme) => ({
     nested: {
         paddingLeft: theme.spacing(4),
     },
+    menuIcon: {
+        minWidth: "30px"
+    }
 }));
 
 
 const NestedMenuListItem = ({ label, icon, children }) => {
 
+    const classes = useStyles()
     const [open, setOpen] = useState(false)
 
     return (
