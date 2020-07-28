@@ -7,20 +7,23 @@ export const FormDocumentRequest = props => {
 
     const [documentRequestInfo, setDocumentRequestInfo] = useState({
         name: '',
-        documentRequestType: undefined
+        documentRequestType: ""
     })
 
     const [documentRequestTypes, setDocumentRequestTypes] = useState([])
     const [isLoadingDocumentRequestTypes, setIsLoadingDocumentRequestTypes] = useState(false)
 
     const onChangeName = (e) => {
-        setDocumentRequestInfo({ ...documentRequestInfo, [e.target.name]: e.target.value })
+        setDocumentRequestInfo({ ...documentRequestInfo, name: e.target.value })
         props.emitDocumentRequestInfo(documentRequestInfo)
+        console.log(documentRequestInfo)
     }
 
     const onChangeSelect = (selectedDocumentRequestType) => {
-        setDocumentRequestInfo({ ...documentRequestInfo, documentRequestType: selectedDocumentRequestType.obj })
-        props.emitDocumentRequestInfo(documentRequestInfo)
+        console.log(selectedDocumentRequestType)
+        const documentRequestType = { documentRequestType: selectedDocumentRequestType.obj }
+        setDocumentRequestInfo({ ...documentRequestInfo, documentRequestType: documentRequestType })
+        props.emitDocumentRequestInfo(documentRequestType)
     }
 
 

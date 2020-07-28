@@ -80,6 +80,7 @@ public class DocumentRequestService {
                             .withPerson(personOfDocumentRequest)
                             .withName(docRequest.getName())
                             .withDocumentItems(documentsRequestItems)
+                            .withDocumentRequestType(docRequest.getDocumentRequestType())
                             .build();
 
                     documentsRequests.add(documentRequest);

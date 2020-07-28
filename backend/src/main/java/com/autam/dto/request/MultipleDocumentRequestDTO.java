@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.autam.domain.DocumentRequestType;
 import com.autam.domain.DocumentType;
 import com.autam.domain.Person;
 
@@ -25,6 +26,8 @@ public class MultipleDocumentRequestDTO implements Serializable {
     private List<Person> people = new ArrayList<>();
 
     private List<DocumentType> documentTypes = new ArrayList<>();
+
+    private DocumentRequestType documentRequestType;
 
     public MultipleDocumentRequestDTO() {
 
@@ -65,10 +68,19 @@ public class MultipleDocumentRequestDTO implements Serializable {
         this.documentTypes = documentTypes;
     }
 
+    public DocumentRequestType getDocumentRequestType() {
+        return documentRequestType;
+    }
+
+    public void setDocumentRequestType(DocumentRequestType documentRequestType) {
+        this.documentRequestType = documentRequestType;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((documentRequestType == null) ? 0 : documentRequestType.hashCode());
         result = prime * result + ((documentTypes == null) ? 0 : documentTypes.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((people == null) ? 0 : people.hashCode());
@@ -84,6 +96,11 @@ public class MultipleDocumentRequestDTO implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         MultipleDocumentRequestDTO other = (MultipleDocumentRequestDTO) obj;
+        if (documentRequestType == null) {
+            if (other.documentRequestType != null)
+                return false;
+        } else if (!documentRequestType.equals(other.documentRequestType))
+            return false;
         if (documentTypes == null) {
             if (other.documentTypes != null)
                 return false;

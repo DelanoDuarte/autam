@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NewDocumentRequestConclusionTab = (props) => {
 
-    const [documentRequestInfo, setDocumentRequestInfo] = useState({})
+    const [documentRequestInfo, setDocumentRequestInfo] = useState("")
 
     const classes = useStyles()
     const requestHasPeopleAndDocuments = () => props.people.people.length === 0 && props.documents.documents.length === 0
@@ -27,8 +27,7 @@ const NewDocumentRequestConclusionTab = (props) => {
             people: props.people.people,
             documentTypes: props.documents.documents
         }
-        console.log(documentRequest)
-        props.onSaveRequest()
+        props.onSaveRequest(documentRequest)
     }
 
     return (

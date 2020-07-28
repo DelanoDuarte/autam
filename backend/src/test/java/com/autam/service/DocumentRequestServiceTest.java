@@ -93,7 +93,7 @@ public class DocumentRequestServiceTest {
                                 .createMultipleDocumentsRequests(documentRequestDTO);
 
                 assertTrue(documentsRequested.isPresent());
-                assertTrue(documentsRequested.get().hasAnyWarning());
+                assertTrue(documentsRequested.get().isHasAnyWarning());
                 assertTrue(documentsRequested.get().getMessages().size() == 2);
         }
 

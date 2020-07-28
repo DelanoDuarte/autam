@@ -9,6 +9,9 @@ import com.autam.validation.CustomMessageValidation;
 public class CustomResult {
 
     private List<CustomMessageValidation> messages = new ArrayList<>();
+    private boolean hasAnyError;
+    private boolean hasAnyWarning;
+    private boolean hasAnyInfo;
 
     public List<CustomMessageValidation> getMessages() {
         return messages;
@@ -18,17 +21,17 @@ public class CustomResult {
         this.messages = messages;
     }
 
-    public boolean hasAnyError() {
+    public boolean isHasAnyError() {
         return !this.messages.isEmpty() && this.messages.stream().filter(message -> message.getMessageType() != null)
                 .anyMatch(m -> m.getMessageType().equals(CustomMessageType.ERROR));
     }
 
-    public boolean hasAnyWarning() {
+    public boolean isHasAnyWarning() {
         return !this.messages.isEmpty() && this.messages.stream().filter(message -> message.getMessageType() != null)
                 .anyMatch(m -> m.getMessageType().equals(CustomMessageType.WARNING));
     }
 
-    public boolean hasAnyInfo() {
+    public boolean isHasAnyInfo() {
         return !this.messages.isEmpty() && this.messages.stream().filter(message -> message.getMessageType() != null)
                 .anyMatch(m -> m.getMessageType().equals(CustomMessageType.INFO));
     }

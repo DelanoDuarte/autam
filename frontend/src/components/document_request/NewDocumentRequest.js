@@ -4,6 +4,8 @@ import { PeopleAltOutlined, FileCopyOutlined, CheckCircle } from "@material-ui/i
 import NewDocumentRequestPersonTab from "./NewDocumentRequestPersonTab";
 import NewDocumentRequestDocumentsTab from "./NewDocumentRequestDocumentsTab";
 import NewDocumentRequestConclusionTab from "./NewDocumentRequestConclusionTab";
+import { useSnackbar } from "notistack";
+import { DocumentRequestAPI } from "../../services/DocumentRequestAPI";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,11 +37,27 @@ function TabPanel(props) {
 
 export const NewDocumentRequest = (props) => {
 
+    const { enqueueSnackbar } = useSnackbar()
+
     const classes = useStyles();
     const [activeTab, setActiveTab] = useState(0)
 
-    const saveRequest = () => {
+    const saveRequest = (documentRequest) => {
         console.log("Save request action")
+        console.log(documentRequest)
+        DocumentRequestAPI.saveDocumentRequest(documentRequest)
+            .then((responseDocumentRequest) => {
+                if (responseDocumentRequest.messages.length > 0) {
+                    responseDocumentRequest.messages.forEach(message => {
+                        enqueueSnackbar(message.shortMessage, { variant: message.messageType.toLowerCase() })
+                    });
+                } else {
+                    enqueueSnackbar("Document Requests successfully created.", { variant: "success" })
+                }
+            })
+            .catch(error => {
+                enqueueSnackbar("Error on save Document Type", { variant: "warning" })
+            })
     }
 
     return (
@@ -62,7 +80,7 @@ export const NewDocumentRequest = (props) => {
                     </TabPanel>
 
                     <TabPanel value={activeTab} index={2}>
-                        <NewDocumentRequestConclusionTab onSaveRequest={() => saveRequest()} />
+                        <NewDocumentRequestConclusionTab onSaveRequest={(documentRequest) => saveRequest(documentRequest)} />
                     </TabPanel>
                 </CardContent>
             </Card>
