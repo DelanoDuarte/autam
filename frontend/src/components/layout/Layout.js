@@ -205,7 +205,7 @@ export const Layout = (props) => {
                             </ListItemIcon>
                             <ListItemText primary="New Request" />
                         </ListItem>
-                        <ListItem button className={classes.nested} to="/" component={Link}>
+                        <ListItem button className={classes.nested} to="/document-request/list" component={Link}>
                             <ListItemIcon>
                                 <ListAlt />
                             </ListItemIcon>

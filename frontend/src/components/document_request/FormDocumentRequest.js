@@ -15,15 +15,13 @@ export const FormDocumentRequest = props => {
 
     const onChangeName = (e) => {
         setDocumentRequestInfo({ ...documentRequestInfo, name: e.target.value })
-        props.emitDocumentRequestInfo(documentRequestInfo)
+        props.emitDocumentRequestName(documentRequestInfo.name)
         console.log(documentRequestInfo)
     }
 
     const onChangeSelect = (selectedDocumentRequestType) => {
-        console.log(selectedDocumentRequestType)
-        const documentRequestType = { documentRequestType: selectedDocumentRequestType.obj }
-        setDocumentRequestInfo({ ...documentRequestInfo, documentRequestType: documentRequestType })
-        props.emitDocumentRequestInfo(documentRequestType)
+        setDocumentRequestInfo({ ...documentRequestInfo, documentRequestType: selectedDocumentRequestType.obj })
+        props.emitDocumentRequestInfo(selectedDocumentRequestType.obj)
     }
 
 

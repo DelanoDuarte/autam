@@ -7,6 +7,7 @@ import { IndexDocumentType } from "./components/document_type";
 import { IndexDocumentTypeFolder } from "./components/document_types_folder";
 import { NewDocumentTypeFolder } from "./components/document_types_folder/NewDocumentTypeFolder";
 import { IndexDocumentRequestType } from "./components/document_request_type";
+import { DocumentRequestList } from "./components/document_request/DocumentRequestList";
 
 export default function Routes() {
     return (
@@ -18,6 +19,10 @@ export default function Routes() {
             {/* Document Request */}
             <Route path="/document-request" exact>
                 <IndexDocumentRequest />
+            </Route>
+
+            <Route path="/document-request/list" exact>
+                <DocumentRequestList />
             </Route>
 
             {/* Document Type */}

@@ -9,5 +9,6 @@ export class DocumentRequestAPI {
 
     static async findAllDocumentRequests() {
         return await ClientAPI.get(`${process.env.REACT_APP_API_URL}/document-request`)
+            .then(response => response.data)
     }
 }

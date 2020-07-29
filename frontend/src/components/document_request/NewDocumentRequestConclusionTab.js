@@ -17,16 +17,20 @@ const useStyles = makeStyles((theme) => ({
 
 const NewDocumentRequestConclusionTab = (props) => {
 
-    const [documentRequestInfo, setDocumentRequestInfo] = useState("")
+    const [documentRequestType, setDocumentRequestType] = useState({})
+    const [documentRequestName, setDocumentRequestTypeName] = useState(undefined)
 
     const classes = useStyles()
     const requestHasPeopleAndDocuments = () => props.people.people.length === 0 && props.documents.documents.length === 0
+
     const onSaveRequest = () => {
         const documentRequest = {
-            ...documentRequestInfo,
-            people: props.people.people,
-            documentTypes: props.documents.documents
+            "name": documentRequestName,
+            "documentRequestType": { ...documentRequestType },
+            "people": props.people.people,
+            "documentTypes": props.documents.documents
         }
+        console.log('Save Document Request', documentRequest)
         props.onSaveRequest(documentRequest)
     }
 
@@ -59,7 +63,9 @@ const NewDocumentRequestConclusionTab = (props) => {
                         <CardHeader title="Document Request Info">
                         </CardHeader>
                         <CardContent>
-                            <FormDocumentRequest emitDocumentRequestInfo={(docRequestInfo) => setDocumentRequestInfo(docRequestInfo)} />
+                            <FormDocumentRequest
+                                emitDocumentRequestInfo={(docRequestInfo) => setDocumentRequestType(docRequestInfo)}
+                                emitDocumentRequestName={(name) => setDocumentRequestTypeName(name)} />
                         </CardContent>
                     </Card>
                 </Grid>

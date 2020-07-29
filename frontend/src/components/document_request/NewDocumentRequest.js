@@ -44,7 +44,6 @@ export const NewDocumentRequest = (props) => {
 
     const saveRequest = (documentRequest) => {
         console.log("Save request action")
-        console.log(documentRequest)
         DocumentRequestAPI.saveDocumentRequest(documentRequest)
             .then((responseDocumentRequest) => {
                 if (responseDocumentRequest.messages.length > 0) {

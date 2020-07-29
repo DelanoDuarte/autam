@@ -1,6 +1,5 @@
 package com.autam.domain;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_document_request")
-public class DocumentRequest implements Serializable {
+public class DocumentRequest extends AbstractEntity {
 
     /**
      *
