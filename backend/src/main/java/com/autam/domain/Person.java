@@ -1,6 +1,7 @@
 package com.autam.domain;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,6 +41,7 @@ public class Person implements Serializable {
     @Column
     private String surname;
 
+    @NotNull
     @Column
     @Email
     private String email;
@@ -76,6 +78,10 @@ public class Person implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_city")
     private City city;
+
+    private Set<TemporaryUser> users;
+
+    private CommonUser user;
 
     public Long getId() {
         return id;
