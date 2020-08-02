@@ -4,34 +4,33 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+import javax.persistence.EntityListeners;
+import javax.persistence.MappedSuperclass;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AbstractEntity implements Serializable {
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
+public abstract class AbstractEntity implements Serializable {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    @Column
-    private LocalDateTime createdDate;
+    @Column(name = "createdDate", nullable = false, updatable = false)
+    @CreationTimestamp
+    protected LocalDateTime createdDate;
 
-    @Column
-    private LocalDateTime updatedDate;
+    @Column(name = "updatedDate", nullable = false)
+    @UpdateTimestamp
+    protected LocalDateTime updatedDate;
 
-    @PrePersist
-    public void createdDateStore() {
-        this.createdDate = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void updatedDateStore() {
-        this.updatedDate = LocalDateTime.now();
-    }
 }

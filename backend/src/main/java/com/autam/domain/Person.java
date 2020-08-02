@@ -3,15 +3,19 @@ package com.autam.domain;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -79,8 +83,11 @@ public class Person implements Serializable {
     @JoinColumn(name = "id_city")
     private City city;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<TemporaryUser> users;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
     private CommonUser user;
 
     public Long getId() {
@@ -193,6 +200,22 @@ public class Person implements Serializable {
 
     public void setSocialSecurityNumber(String socialSecurityNumber) {
         this.socialSecurityNumber = socialSecurityNumber;
+    }
+
+    public CommonUser getUser() {
+        return user;
+    }
+    
+    public Set<TemporaryUser> getUsers() {
+        return users;
+    }
+
+    public void setUser(CommonUser user) {
+        this.user = user;
+    }
+
+    public void setUsers(Set<TemporaryUser> users) {
+        this.users = users;
     }
 
     public Person(@NotNull String name, @NotNull String surname, @Email String email, int age) {
