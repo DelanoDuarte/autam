@@ -1,5 +1,7 @@
 package com.autam.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,11 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +32,12 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_user")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class User {
+public abstract class User implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,6 +49,7 @@ public abstract class User {
     @Email
     private String email;
 
+    @JsonIgnore
     @Column
     @NotNull
     private String password;
@@ -48,6 +61,10 @@ public abstract class User {
     private boolean active;
 
     @Column
-    private boolean temporary;
+    private boolean temporary = Boolean.FALSE;
+
+    @ManyToOne
+    @JoinColumn(name = "id_person")
+    private Person person;
 
 }

@@ -13,6 +13,8 @@ import com.autam.dto.request.MultipleDocumentRequestDTO;
 import com.autam.dto.response.CreatedMultipleDocumentRequestDTO;
 import com.autam.repository.DocumentRequestRepository;
 import com.autam.repository.PersonRepository;
+import com.autam.repository.TemporaryUserRepository;
+import com.autam.repository.UserRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,11 +32,14 @@ public class DocumentRequestServiceTest {
         @Mock
         private PersonRepository personRepository;
 
+        @Mock
+        private TemporaryUserRepository temporaryUserRepository;
+
         private DocumentRequestService documentRequestService;
 
         @Before
         public void init() {
-                this.documentRequestService = new DocumentRequestService(documentRequestRepository, personRepository);
+                this.documentRequestService = new DocumentRequestService(documentRequestRepository, personRepository, temporaryUserRepository);
         }
 
         @Test

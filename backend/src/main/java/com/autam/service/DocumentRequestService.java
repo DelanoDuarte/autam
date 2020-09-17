@@ -1,40 +1,47 @@
 package com.autam.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.autam.domain.DocumentRequest;
 import com.autam.domain.DocumentRequestItem;
 import com.autam.domain.Person;
+import com.autam.domain.TemporaryUser;
 import com.autam.dto.request.MultipleDocumentRequestDTO;
 import com.autam.dto.response.CreatedMultipleDocumentRequestDTO;
 import com.autam.repository.DocumentRequestRepository;
 import com.autam.repository.PersonRepository;
+import com.autam.repository.TemporaryUserRepository;
 import com.autam.validation.CustomMessageType;
 import com.autam.validation.CustomMessageValidation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.utility.RandomString;
+
+@Slf4j
 @Service
 public class DocumentRequestService {
 
-    private final Logger logger = Logger.getLogger(DocumentRequestService.class.getSimpleName());
-
     private DocumentRequestRepository documentRequestRepository;
     private PersonRepository personRepository;
+    private TemporaryUserRepository temporaryUserRepository;
 
     @Autowired
     public DocumentRequestService(final DocumentRequestRepository documentRequestRepository,
-            final PersonRepository personRepository) {
+            final PersonRepository personRepository,
+            final TemporaryUserRepository temporaryUserRepository) {
 
         this.documentRequestRepository = documentRequestRepository;
         this.personRepository = personRepository;
+        this.temporaryUserRepository = temporaryUserRepository;
     }
 
     public Optional<CreatedMultipleDocumentRequestDTO> createMultipleDocumentsRequests(
@@ -66,13 +73,12 @@ public class DocumentRequestService {
                 Optional<List<Person>> savedNewPeopleOfDocumentsRequets = Optional
                         .of(personRepository.saveAll(newPeopleToSaveBeforeCreateRequest));
 
-                savedNewPeopleOfDocumentsRequets.ifPresent(newPeopleSaved -> {
-
-                    peopleAlreadySavedInDatabase.addAll(newPeopleSaved);
-                });
+                savedNewPeopleOfDocumentsRequets.ifPresent(newPeopleSaved -> peopleAlreadySavedInDatabase.addAll(newPeopleSaved));
             }
 
             if (!peopleAlreadySavedInDatabase.isEmpty()) {
+
+                this.generateTempraryUsersFromPeopleOfDocumentRequest(peopleAlreadySavedInDatabase);
 
                 peopleAlreadySavedInDatabase.forEach(personOfDocumentRequest -> {
 
@@ -102,9 +108,23 @@ public class DocumentRequestService {
             }
             return Optional.of(docRequestsCreated);
         } catch (Exception e) {
-            logger.warning("Something bad happened on open multiple document requests" + e.getMessage());
+            log.error("Something bad happened on open multiple document requests" + e.getMessage());
         }
         return Optional.empty();
+    }
+
+    public void generateTempraryUsersFromPeopleOfDocumentRequest(List<Person> people) {
+        people.forEach(person -> {
+
+            TemporaryUser temporaryUser = new TemporaryUser();
+            temporaryUser.setTemporary(true);
+            temporaryUser.setEmail(person.getEmail());
+            temporaryUser.setPassword(RandomString.make(8));
+            temporaryUser.setStartDate(LocalDateTime.now());
+            temporaryUser.setEndDate(LocalDateTime.now().plusMonths(1));
+            temporaryUser.setPerson(person);
+            temporaryUserRepository.save(temporaryUser);
+        });
     }
 
 }
