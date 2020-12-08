@@ -13,8 +13,8 @@ export const FormDocumentRequest = props => {
     const [documentRequestTypes, setDocumentRequestTypes] = useState([])
     const [isLoadingDocumentRequestTypes, setIsLoadingDocumentRequestTypes] = useState(false)
 
-    const onChangeName = (e) => {
-        setDocumentRequestInfo({ ...documentRequestInfo, name: e.target.value })
+    const onChangeName = (name) => {
+        setDocumentRequestInfo({ ...documentRequestInfo, name: name })
         props.emitDocumentRequestName(documentRequestInfo.name)
         console.log(documentRequestInfo)
     }
@@ -28,9 +28,11 @@ export const FormDocumentRequest = props => {
     useEffect(() => {
         DocumentRequestTypeAPI.fetchAllDocumentRequestTypes()
             .then(data => {
+                setIsLoadingDocumentRequestTypes(true)
                 const mapDataToOptionValue = data.map(d => ({ value: d.id, label: d.name, obj: d }))
                 setDocumentRequestTypes(mapDataToOptionValue)
             })
+            .finally(() => setIsLoadingDocumentRequestTypes(false))
     }, [])
 
     return (
@@ -44,7 +46,7 @@ export const FormDocumentRequest = props => {
                         fullWidth
                         name="name"
                         value={documentRequestInfo.name}
-                        onChange={(e) => onChangeName(e)}
+                        onChange={(e) => onChangeName(e.target.value)}
                         margin="normal"
                     />
                 </Grid>

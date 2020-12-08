@@ -76,41 +76,48 @@ public class DocumentRequestService {
                 savedNewPeopleOfDocumentsRequets.ifPresent(newPeopleSaved -> peopleAlreadySavedInDatabase.addAll(newPeopleSaved));
             }
 
-            if (!peopleAlreadySavedInDatabase.isEmpty()) {
-
-                this.generateTempraryUsersFromPeopleOfDocumentRequest(peopleAlreadySavedInDatabase);
-
-                peopleAlreadySavedInDatabase.forEach(personOfDocumentRequest -> {
-
-                    DocumentRequest documentRequest = DocumentRequest.builder()
-                            .withPerson(personOfDocumentRequest)
-                            .withName(docRequest.getName())
-                            .withDocumentItems(documentsRequestItems)
-                            .withDocumentRequestType(docRequest.getDocumentRequestType())
-                            .build();
-
-                    documentsRequests.add(documentRequest);
-                });
-
-                if (!documentsRequests.isEmpty()) {
-
-                    Optional<List<DocumentRequest>> createdDocRequests = Optional
-                            .of(documentRequestRepository.saveAll(documentsRequests));
-
-                    createdDocRequests.ifPresent(docsRequests -> {
-                        docRequestsCreated.setDocumentRequests(docsRequests);
-                    });
-                }
-
-            } else {
-                docRequestsCreated.getMessages().add(
-                        new CustomMessageValidation("No person was added to the request", CustomMessageType.WARNING));
-            }
+            mapPeopleAndGeneratePeopleTemporaryUser(docRequest, docRequestsCreated, documentsRequests, documentsRequestItems,
+                    peopleAlreadySavedInDatabase);
             return Optional.of(docRequestsCreated);
         } catch (Exception e) {
             log.error("Something bad happened on open multiple document requests" + e.getMessage());
         }
         return Optional.empty();
+    }
+
+    private void mapPeopleAndGeneratePeopleTemporaryUser(MultipleDocumentRequestDTO docRequest, CreatedMultipleDocumentRequestDTO docRequestsCreated,
+            List<DocumentRequest> documentsRequests, Set<DocumentRequestItem> documentsRequestItems,
+            List<Person> peopleAlreadySavedInDatabase) {
+        if (!peopleAlreadySavedInDatabase.isEmpty()) {
+
+            this.generateTempraryUsersFromPeopleOfDocumentRequest(peopleAlreadySavedInDatabase);
+
+            peopleAlreadySavedInDatabase.forEach(personOfDocumentRequest -> {
+
+                DocumentRequest documentRequest = DocumentRequest.builder()
+                        .withPerson(personOfDocumentRequest)
+                        .withName(docRequest.getName())
+                        .withDocumentItems(documentsRequestItems)
+                        .withDocumentRequestType(docRequest.getDocumentRequestType())
+                        .build();
+
+                documentsRequests.add(documentRequest);
+            });
+
+            if (!documentsRequests.isEmpty()) {
+
+                Optional<List<DocumentRequest>> createdDocRequests = Optional
+                        .of(documentRequestRepository.saveAll(documentsRequests));
+
+                createdDocRequests.ifPresent(docsRequests -> {
+                    docRequestsCreated.setDocumentRequests(docsRequests);
+                });
+            }
+
+        } else {
+            docRequestsCreated.getMessages().add(
+                    new CustomMessageValidation("No person was added to the request", CustomMessageType.WARNING));
+        }
     }
 
     public void generateTempraryUsersFromPeopleOfDocumentRequest(List<Person> people) {
@@ -119,7 +126,7 @@ public class DocumentRequestService {
             TemporaryUser temporaryUser = new TemporaryUser();
             temporaryUser.setTemporary(true);
             temporaryUser.setEmail(person.getEmail());
-            temporaryUser.setPassword(RandomString.make(8));
+            temporaryUser.setPassword(RandomString.make(8)); //TODO: Refact to hash password.
             temporaryUser.setStartDate(LocalDateTime.now());
             temporaryUser.setEndDate(LocalDateTime.now().plusMonths(1));
             temporaryUser.setPerson(person);

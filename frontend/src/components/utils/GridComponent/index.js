@@ -13,9 +13,6 @@ export const GridComponent = ({ children, columns }) => {
     const classes = useStyles()
 
     if (children && columns) {
-
-        console.log(children)
-
         return (
             <div>
                 <TableContainer component={Paper}>

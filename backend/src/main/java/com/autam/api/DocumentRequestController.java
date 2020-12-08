@@ -25,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 public class DocumentRequestController extends BaseAPI<DocumentRequest, Long> {
 
     private DocumentRequestRepository documentRequestRepository;
-
     private DocumentRequestService documentRequestService;
 
     @Autowired

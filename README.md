@@ -3,9 +3,8 @@
 
 ## Stack
 ### Backend
-- Node JS - 10.16.3
-- NPM - 6.4.1
-- Express - 4.17.1
+- Java - 1.8
+- Spring Boot - 2.3.1.RELEASE
   
 ### Frontend
 - React - 16.13.1
@@ -16,13 +15,12 @@
 - Sequelize - 5.21.6
   
 ### Test
-- Jest - 25.4.0 **(Backend)** 
-- SuperTest - 4.0.2 **(Backend)**
+- Junit - (Spring Embedded) **(Backend)** 
 - Jest - **(Frontend. Integrated with React)**
 
 ## Setup
 ### Client
-Navigate to the **view** folder and using **npm** install all dependencies using the following command:
+Navigate to the **frontend** folder and using **npm** install all dependencies using the following command:
 
 `npm install`
 
@@ -31,25 +29,20 @@ After downloading all dependencies, use the following command to run the **front
 `npm start`
 
 ### Server
-use **npm** install all dependencies with the following command:
+use **mvn** install all dependencies with the following command:
 
-`npm install`
+`mvn install`
 
 After downloading all dependencies, use the following command to run the **backend**:
 
-`npm start`
+`mvn spring-boot:run`
 
-If you have nodemon installed in your environment, you can use for hot reload, using the command:
-
-`nodemon`
-
-
-### Alternative way
-You can also run both projects **frontend** and **backend**, using [concurrently](https://www.npmjs.com/package/concurrently), performing the following command:
-
-`npm run dev`
 
 ### Run tests
-From the **server** folder, perform the following command to run unit tests:
+From the **frontend** folder, perform the following command to run unit tests:
 
 `npm test`
+
+From the **backend** folder, perform the following command to run unit tests:
+
+`mvn test`

@@ -1,10 +1,10 @@
+import { Button, Card, CardContent, CardHeader, Divider, Grid, makeStyles } from "@material-ui/core";
+import { FileCopyRounded } from "@material-ui/icons";
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import PeopleAddedToNewDocumentRequest from "./PeopleAddedToNewDocumentRequest";
-import { Grid, Card, CardHeader, CardContent, Button, makeStyles, Divider } from "@material-ui/core";
 import DocumentsAddedList from "./DocumentsAddedList";
-import { FileCopyRounded } from "@material-ui/icons";
 import { FormDocumentRequest } from "./FormDocumentRequest";
+import PeopleAddedToNewDocumentRequest from "./PeopleAddedToNewDocumentRequest";
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
     extendedIcon: {
         marginRight: theme.spacing(1),
     },
+    card_content: {
+        paddingBottom: '90px'
+    }
 }));
 
 const NewDocumentRequestConclusionTab = (props) => {
@@ -35,7 +38,7 @@ const NewDocumentRequestConclusionTab = (props) => {
     }
 
     return (
-        <div>
+        <React.Fragment> 
             <Grid container
                 direction="row"
                 justify="flex-end"
@@ -57,9 +60,8 @@ const NewDocumentRequestConclusionTab = (props) => {
             <br />
 
             <Grid container spacing={2}>
-
                 <Grid item xs={12}>
-                    <Card elevation={3}>
+                    <Card elevation={3} className={classes.card_content}>
                         <CardHeader title="Document Request Info">
                         </CardHeader>
                         <CardContent>
@@ -71,7 +73,7 @@ const NewDocumentRequestConclusionTab = (props) => {
                 </Grid>
 
                 <Grid item xs={8}>
-                    <Card elevation={3}>
+                    <Card elevation={2}>
                         <CardHeader title="People that will receive the Document Request">
                         </CardHeader>
                         <CardContent>
@@ -89,7 +91,7 @@ const NewDocumentRequestConclusionTab = (props) => {
                     </Card>
                 </Grid>
             </Grid>
-        </div>
+        </React.Fragment>
     )
 }
 

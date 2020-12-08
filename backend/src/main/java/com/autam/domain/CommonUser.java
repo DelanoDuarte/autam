@@ -12,4 +12,9 @@ import lombok.Setter;
 @Table(name = "tb_common_user")
 public class CommonUser extends User {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
 }

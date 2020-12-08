@@ -83,7 +83,7 @@ public class Person implements Serializable {
     @JoinColumn(name = "id_city")
     private City city;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "person")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<TemporaryUser> users;
 
     @OneToOne(fetch = FetchType.LAZY)
