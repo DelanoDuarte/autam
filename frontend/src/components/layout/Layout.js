@@ -1,4 +1,4 @@
-import { Badge, Collapse } from '@material-ui/core';
+import { Badge, Button, Collapse } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { AccountBoxOutlined, Add, ExpandLess, ExpandMore, FileCopyOutlined, FileCopyRounded, FindInPageOutlined, Flag, FolderOpenOutlined, HomeOutlined, Notifications, ListAlt, Settings } from "@material-ui/icons";
+import { AccountBoxOutlined, Add, ExpandLess, ExpandMore, FileCopyOutlined, FileCopyRounded, FindInPageOutlined, Flag, FolderOpenOutlined, HomeOutlined, ListAlt, Notifications, Settings } from "@material-ui/icons";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -166,10 +166,14 @@ export const Layout = (props) => {
 
                     <IconButton edge="end" aria-controls="menu-appbar"
                         color="inherit">
-                        <Badge badgeContent={0} color="secondary">
+                        <Badge badgeContent={10} color="secondary">
                             <Notifications />
                         </Badge>
                     </IconButton>
+
+                    <Button color="inherit" to="/signIn" component={Link} style={{marginLeft : "15px"}}>
+                        Login
+                    </Button>
 
                 </Toolbar>
             </AppBar>

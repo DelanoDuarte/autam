@@ -8,12 +8,17 @@ import { IndexDocumentTypeFolder } from "./components/document_types_folder";
 import { NewDocumentTypeFolder } from "./components/document_types_folder/NewDocumentTypeFolder";
 import { IndexDocumentRequestType } from "./components/document_request_type";
 import { DocumentRequestList } from "./components/document_request/DocumentRequestList";
+import { SignIn } from "./components/login/SignIn";
 
 export default function Routes() {
     return (
         <Switch>
             <Route path="/" exact>
                 <Home />
+            </Route>
+
+            <Route path="/signIn" exact>
+                <SignIn />
             </Route>
 
             {/* Document Request */}
